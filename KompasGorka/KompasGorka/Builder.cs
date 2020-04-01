@@ -11,7 +11,7 @@ namespace KompasGorka
     class Builder
     {
 
-        public void Build(ksPart iPart)
+        public void Build(ksPart iPart, FigureParams figureParams)
         {
             // Построить коробку
             CreateCase(iPart);

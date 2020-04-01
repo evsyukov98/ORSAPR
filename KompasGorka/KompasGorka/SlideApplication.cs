@@ -24,10 +24,15 @@ namespace KompasGorka
         }
 
         // Кнопка построить
-        private void buttonBuildSlide_Click(object sender, EventArgs e)
+        private void ButtonBuildSlide_Click(object sender, EventArgs e)
         {
+            figureParams = new FigureParams(int.Parse(textBoxC.Text),
+                int.Parse(textBoxD.Text), int.Parse(textBoxL.Text),
+                int.Parse(textBoxG.Text), int.Parse(textBoxF.Text),
+                int.Parse(textBoxA.Text), int.Parse(textBoxE.Text));
+
             Builder builder = new Builder();
-            builder.Build(kompasConnector.iPart);
+            builder.Build(kompasConnector.iPart, figureParams);
         }
      
     }

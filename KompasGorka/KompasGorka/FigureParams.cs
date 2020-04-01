@@ -13,14 +13,26 @@ namespace KompasGorka
         private int _mainLengthL;
         private int _platformHeightG;
         private int _platformLengthF;
-        private int _slidaeWidthA;
+        private int _slideWidthA;
         private int _startLengthE;
+
+        public FigureParams(int borderHeightC,int endLengthD, int mainLengthL, 
+            int platformHeightG, int platformLengthF, int slideWidthA, int startLengthE)
+        {
+            BorderHightC = borderHeightC;
+            EndLengthD = endLengthD;
+            MainLengthL = mainLengthL;
+            PlatformHeightG = platformHeightG;
+            PlatformLengthF = platformLengthF;
+            SlideWidthA = slideWidthA;
+            StartLengthE = startLengthE;              
+        }
 
         public int BorderHightC {
             get => _borderHeightC;
             set 
             {
-                if (value > 8 || value < 32)
+                if (value < 8 || value > 32)
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 8 до 32");
                 }
@@ -34,7 +46,7 @@ namespace KompasGorka
             get => _endLengthD;
             set
             {
-                if(value > 20 || value < 60)
+                if(value < 20 || value > 60)
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 20 до 60");
                 }
@@ -47,7 +59,7 @@ namespace KompasGorka
             get => _mainLengthL;
             set
             {
-                if (value > 80 || value < 240)
+                if (value < 80 || value > 240)
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 80 до 240");
                 }
@@ -60,7 +72,7 @@ namespace KompasGorka
             get => _platformHeightG;
             set
             {
-                if (value > 40 || value < 160)
+                if (value < 40 || value > 160)
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 40 до 160");
                 }
@@ -73,7 +85,7 @@ namespace KompasGorka
             get => _platformLengthF;
             set
             {
-                if (value > 40 || value < 120)
+                if (value < 40 || value > 120)
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 40 до 120");
                 }
@@ -83,14 +95,14 @@ namespace KompasGorka
 
         public int SlideWidthA
         {
-            get => _slidaeWidthA;
+            get => _slideWidthA;
             set
             {
-                if (value > 20 || value < 80)
+                if (value < 20 || value > 80)
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 20 до 80");
                 }
-                _slidaeWidthA = value;
+                _slideWidthA = value;
             }
         }
 
@@ -99,7 +111,7 @@ namespace KompasGorka
             get => _startLengthE;
             set
             {
-                if (value > 20 || value < 60)
+                if (value < 20 || value > 60)
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 20 до 60");
                 }
