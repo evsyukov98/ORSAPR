@@ -38,6 +38,7 @@ namespace KompasGorka
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 20 до 60");
                 }
+                _endLengthD = value;
             }
         }
 
@@ -50,6 +51,7 @@ namespace KompasGorka
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 80 до 240");
                 }
+                _mainLengthL = value;
             }
         }
 
@@ -62,6 +64,7 @@ namespace KompasGorka
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 40 до 160");
                 }
+                _platformHeightG = value;
             }
         }
 
@@ -74,6 +77,7 @@ namespace KompasGorka
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 40 до 120");
                 }
+                _platformLengthF = value;
             }
         }
 
@@ -86,6 +90,7 @@ namespace KompasGorka
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 20 до 80");
                 }
+                _slidaeWidthA = value;
             }
         }
 
@@ -98,6 +103,7 @@ namespace KompasGorka
                 {
                     throw new ArgumentException("Значение параметра должно находиться в диапозоне от 20 до 60");
                 }
+                _startLengthE = value;
             }
         }
 
