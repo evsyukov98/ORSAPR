@@ -16,7 +16,5 @@ namespace KompasGorka
 
         private KompasObject _kompas;
 
-       
-
     }
 }

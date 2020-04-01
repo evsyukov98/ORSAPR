@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Builder.cs" />
     <Compile Include="FigureParams.cs" />
+    <Compile Include="KompasConnector.cs" />
     <Compile Include="SlideApplication.cs">
       <SubType>Form</SubType>
     </Compile>
