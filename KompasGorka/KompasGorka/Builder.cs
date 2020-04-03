@@ -1,51 +1,212 @@
 ﻿using Kompas6API5;
 using Kompas6Constants3D;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KompasGorka
 {
     class Builder
     {
+        public FigureParams FigureParams;
+        public ksPart iPart;
+
 
         public void Build(ksPart iPart, FigureParams figureParams)
         {
-            // Построить коробку
-            CreateCase(iPart);
+            FigureParams = figureParams;
+            this.iPart = iPart;
+
+            CreatePlatform();
+
+            CreateStartSlide();
+
+            CreateSlide();
+
+            CreateEndSlide();
+
+            CreateBorder();
            
         }
-
-        private void CreateCase(ksPart iPart)
+        
+        // С комментариями
+        private void CreatePlatform()
         {
-            // Создаем обьект эскиза 
-            ksEntity iSketch = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksEntity iSketch;
 
-            // Получаем интерфейс свойств эскиза
-            ksSketchDefinition iDefinitionSketch = iSketch.GetDefinition();
+            ksSketchDefinition iDefinitionSketch;
 
-            // Устанавливаем плоскость эскиза плоскости ХОY
-            iDefinitionSketch.SetPlane(iPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
+            CreateSketch(out iSketch, out iDefinitionSketch);
 
-            // Теперь когда св-ва эскиза установлены можно его создать 
-            iSketch.Create();
 
-            // Берем у эскиза св-ва для черчений линий
+            // Интерфейс для рисования = на скетче;
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             // Построить линию (x1,y1, x2,y2, style)
-            iDocument2D.ksLineSeg(1, 2, 3, 3, 1);
-            iDocument2D.ksLineSeg(1, 3, 3, 4, 1);
-
-            iDocument2D.ksLineSeg(1, 2, 1, 3, 1);
-            iDocument2D.ksLineSeg(3, 3, 3, 4, 1);
+            iDocument2D.ksLineSeg(0, 0, 0, 3, 1);
+            iDocument2D.ksLineSeg(0, 3, FigureParams.PlatformLengthF, 3, 1);
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 3, FigureParams.PlatformLengthF, 0, 1);
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 0, 0, 0, 1);
 
             // Закончить редактировать эскиз
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 3, true);
+            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+        }
+
+        private void CreateStartSlide()
+        {
+            ksEntity iSketch;
+
+            ksSketchDefinition iDefinitionSketch;
+
+            CreateSketch(out iSketch, out iDefinitionSketch);
+
+
+            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF , 0, 
+                FigureParams.PlatformLengthF , 3, 1);
+
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF , 3, 
+                FigureParams.PlatformLengthF  +FigureParams.StartLengthE, 3, 1);
+
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF  + FigureParams.StartLengthE, 3,
+                FigureParams.PlatformLengthF  + FigureParams.StartLengthE, 0, 1);
+
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF  + FigureParams.StartLengthE, 0,
+                FigureParams.PlatformLengthF , 0, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+        }
+
+        private void CreateSlide()
+        {
+            ksEntity iSketch;
+
+            ksSketchDefinition iDefinitionSketch;
+
+            CreateSketch(out iSketch, out iDefinitionSketch);
+
+
+            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF +FigureParams.StartLengthE , 0,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE, 3, 1);
+
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF + FigureParams.StartLengthE, 3,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE +FigureParams.MainLengthL, 
+                FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG - 3, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL, 
+                 FigureParams.PlatformHeightG - 3,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE , 0, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+        }
+
+        private void CreateEndSlide()
+        {
+            ksEntity iSketch;
+
+            ksSketchDefinition iDefinitionSketch;
+
+            CreateSketch(out iSketch, out iDefinitionSketch);
+
+
+            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE+ FigureParams.MainLengthL, 
+                FigureParams.PlatformHeightG - 3,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL +FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL +FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG - 3, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                 FigureParams.PlatformHeightG - 3,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE+FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG - 3, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+        }
+
+        private void CreateBorder()
+        {
+            ksEntity iSketch;
+            ksSketchDefinition iDefinitionSketch;
+
+            CreateSketch(out iSketch, out iDefinitionSketch, 20);
+
+
+            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(0, 0, 0, 3, 1);
+            iDocument2D.ksLineSeg(0, 3, FigureParams.PlatformLengthF, 3, 1);
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 3, FigureParams.PlatformLengthF, 0, 1);
+            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 0, 0, 0, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+        }
+
+        /// <summary>
+        /// Создать эскиз
+        /// </summary>
+        /// <param name="iSketch">Эскиз</param>
+        /// <param name="iDefinitionSketch">Определение эскиза</param>
+        /// <param name="offset">Смещение от начальной плоскости</param>
+        private void CreateSketch(out ksEntity iSketch, out ksSketchDefinition iDefinitionSketch, double offset = 0)
+        {
+            #region Создание смещенную плоскость -------------------------
+            // интерфейс смещенной плоскости
+            ksEntity iPlane = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_planeOffset);
+
+            // Получаем интрефейс настроек смещенной плоскости
+            ksPlaneOffsetDefinition iPlaneDefinition = (ksPlaneOffsetDefinition)iPlane.GetDefinition();
+
+            // Настройки : начальная позиция, направление смещения, расстояние от плоскости, принять все настройки (create)
+            iPlaneDefinition.SetPlane(iPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
+            iPlaneDefinition.direction = true;
+            iPlaneDefinition.offset = offset;
+            iPlane.Create();
+            #endregion --------------------------------------------------
+
+            // Создаем обьект эскиза
+            iSketch = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_sketch);
+
+            // Получаем интерфейс настроек эскиза
+            iDefinitionSketch = iSketch.GetDefinition();
+
+            // Устанавливаем плоскость эскиза
+            iDefinitionSketch.SetPlane(iPlane);
+
+            // Теперь когда св-ва эскиза установлены можно его создать 
+            iSketch.Create();
         }
 
         /// <summary>
@@ -54,8 +215,8 @@ namespace KompasGorka
         /// <param name="iPart">Интерфейс детали</param>
         /// <param name="iSketch">Эскиз</param>
         /// <param name="depth">Глубина выдавливания</param>
-        /// <param name="type">Направление выдавливания</param>
-        private void ExctrusionSketch(ksPart iPart, ksEntity iSketch, double depth, bool type)
+        /// <param name="direction">Направление выдавливания</param>
+        private void ExctrusionSketch(ksPart iPart, ksEntity iSketch, double depth, bool direction)
         {
             //Операция выдавливание
             ksEntity entityExtr = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_bossExtrusion);
@@ -70,7 +231,7 @@ namespace KompasGorka
             extrusionDef.SetSketch(iSketch);
 
             //Направление выдавливания
-            if (type == false)
+            if (direction == false)
             {
                 extrProp.direction = (short)Direction_Type.dtReverse;
             }
@@ -83,7 +244,7 @@ namespace KompasGorka
             extrProp.typeNormal = (short)End_Type.etBlind;
 
             //Глубина выдавливания
-            if (type == false)
+            if (direction == false)
             {
                 extrProp.depthReverse = depth;
             }
@@ -96,8 +257,7 @@ namespace KompasGorka
             entityExtr.Create();
         }
 
-
-        /*
+        /* 
         // Построить коробку на поверхности другой (пока не работает)
         private void CreateCaseFace(ksPart iPart)
         {
