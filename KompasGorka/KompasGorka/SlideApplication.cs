@@ -1,77 +1,47 @@
 ﻿using Kompas6API5;
+using Kompas6Constants3D;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KompasGorka
 {
     public partial class SlideApplication : Form
     {
-        // c помощью этого обьекта мы можем 
-        // выбрать определенное окно приложения компас
-        private KompasObject _kompas = null;
+        private FigureParams figureParams;
 
-        // с помощью этого обьекта мы можем
-        // создать 3Д документ для построения предметов
-        private ksDocument3D _doc3D = null;
+        private KompasConnector kompasConnector;
 
-        // с помощью этого обьекта мы можем
-        // создать эскиз и редактировать его
-        private ksSketchDefinition _sketch;
 
         public SlideApplication()
         {
             InitializeComponent();
-            
-        }
 
+            textBoxC.Text = Convert.ToString(8);
+            textBoxD.Text = Convert.ToString(20);
+            textBoxL.Text = Convert.ToString(80);
+            textBoxG.Text = Convert.ToString(40);
+            textBoxF.Text = Convert.ToString(40);
+            textBoxA.Text = Convert.ToString(20);
+            textBoxE.Text = Convert.ToString(20);
+
+        }
+        
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            // если окно компаса не включено
-            // создать обьект компаса (т.е. обьект будет в процессе но не виден)
-            if (_kompas == null)
-            {
-                Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
-                _kompas = (KompasObject)Activator.CreateInstance(t);
-
-            }
-
-            // если обьект создан
-            // показать компас
-            if (_kompas != null)
-            {
-                _kompas.Visible = true;
-                _kompas.ActivateControllerAPI();
-            }
+            kompasConnector = new KompasConnector(figureParams); // подключаем компас
         }
 
-        private void buttonBuildSlide_Click(object sender, EventArgs e)
+        // Кнопка построить
+        private void ButtonBuildSlide_Click(object sender, EventArgs e)
         {
-            //если компас запущен
-            if (_kompas != null) 
-            {
-                // присвоить управление документами _doc3D
-                _doc3D = (ksDocument3D)_kompas.Document3D();
+            figureParams = new FigureParams(int.Parse(textBoxC.Text),
+                int.Parse(textBoxD.Text), int.Parse(textBoxL.Text),
+                int.Parse(textBoxG.Text), int.Parse(textBoxF.Text),
+                int.Parse(textBoxA.Text), int.Parse(textBoxE.Text));
 
-                // создать документ
-                _doc3D.Create(false/*invisible*/, true);
-              
-            }
-
-            
+            Builder builder = new Builder();
+            builder.Build(kompasConnector.iPart, figureParams);
         }
-
-        private void SlideApplication_Load(object sender, EventArgs e)
-        {
-
-        }
-
-       
+     
     }
 }
