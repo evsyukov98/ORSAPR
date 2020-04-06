@@ -19,7 +19,7 @@ namespace KompasGorka
         // взять управление конкретно над интерфейсом программы
         public ksPart iPart = null;
 
-        public KompasConnector(FigureParams figureParams)
+        public KompasConnector()
         {
             TakeKompas();
         }
@@ -38,8 +38,10 @@ namespace KompasGorka
             // показать компас          
             _kompas.Visible = true;
             _kompas.ActivateControllerAPI();
+        }
 
-            
+        public void NewDocument()
+        {
             // присвоить управление документами _doc3D
             _doc3D = (ksDocument3D)_kompas.Document3D();
 
@@ -47,7 +49,7 @@ namespace KompasGorka
             _doc3D.Create(false/*invisible*/, true);
 
             // получить интерфейс детали !!
-            iPart = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);            
+            iPart = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
         }
     }
 }

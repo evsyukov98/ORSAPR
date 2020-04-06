@@ -28,20 +28,29 @@ namespace KompasGorka
         
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            kompasConnector = new KompasConnector(figureParams); // подключаем компас
+            kompasConnector = new KompasConnector(); // подключаем компас
         }
 
         // Кнопка построить
         private void ButtonBuildSlide_Click(object sender, EventArgs e)
         {
+            kompasConnector.NewDocument();
+
             figureParams = new FigureParams(int.Parse(textBoxC.Text),
                 int.Parse(textBoxD.Text), int.Parse(textBoxL.Text),
                 int.Parse(textBoxG.Text), int.Parse(textBoxF.Text),
                 int.Parse(textBoxA.Text), int.Parse(textBoxE.Text));
 
+            
+
             Builder builder = new Builder();
+
             builder.Build(kompasConnector.iPart, figureParams);
         }
-     
+
+        private void SlideApplication_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

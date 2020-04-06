@@ -24,6 +24,10 @@ namespace KompasGorka
             CreateEndSlide();
 
             CreateBorder();
+
+            CreatePillar();
+
+            CreateStairsBorder();
            
         }
         
@@ -159,20 +163,217 @@ namespace KompasGorka
             ksEntity iSketch;
             ksSketchDefinition iDefinitionSketch;
 
-            CreateSketch(out iSketch, out iDefinitionSketch, 20);
+            CreateSketch(out iSketch, out iDefinitionSketch);
 
 
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
-            iDocument2D.ksLineSeg(0, 0, 0, 3, 1);
-            iDocument2D.ksLineSeg(0, 3, FigureParams.PlatformLengthF, 3, 1);
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 3, FigureParams.PlatformLengthF, 0, 1);
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 0, 0, 0, 1);
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF, 
+                -FigureParams.BorderHightC, 
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE, 
+                -FigureParams.BorderHightC, 1);
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                -FigureParams.BorderHightC,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE +FigureParams.MainLengthL, 
+                FigureParams.PlatformHeightG -3 - FigureParams.BorderHightC, 1);
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL +FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                3, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                3,
+                FigureParams.PlatformLengthF,
+                3, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF,
+                3,
+                FigureParams.PlatformLengthF,
+                -FigureParams.BorderHightC, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+            ExctrusionSketch(iPart, iSketch, 2, false);
+
+            CreateSketch(out iSketch, out iDefinitionSketch, FigureParams.SlideWidthA);
+
+
+            iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF,
+                -FigureParams.BorderHightC,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                -FigureParams.BorderHightC, 1);
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                -FigureParams.BorderHightC,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC, 1);
+
+            iDocument2D.ksLineSeg(
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
+                FigureParams.PlatformHeightG,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
+                FigureParams.PlatformHeightG,
+                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                3, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                3,
+                FigureParams.PlatformLengthF,
+                3, 1);
+
+            iDocument2D.ksLineSeg(
+                 FigureParams.PlatformLengthF,
+                3,
+                FigureParams.PlatformLengthF,
+                -FigureParams.BorderHightC, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, 2, true);
         }
+
+        private void CreatePillar()
+        {
+            ksEntity iSketch;
+            ksSketchDefinition iDefinitionSketch;
+
+            CreateSketch(out iSketch, out iDefinitionSketch);
+
+            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+            
+            iDocument2D.ksLineSeg(0, -50, 5, -50, 1);
+
+            iDocument2D.ksLineSeg(5, -50, 5, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(5, FigureParams.PlatformHeightG, 0, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(0,FigureParams.PlatformHeightG, 0, -50, 1);
+
+
+            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, -50, 1);
+
+            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, -50, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, 5, false);
+
+            CreateSketch(out iSketch, out iDefinitionSketch, FigureParams.SlideWidthA);
+
+            iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(0, -50, 5, -50, 1);
+
+            iDocument2D.ksLineSeg(5, -50, 5, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(5, FigureParams.PlatformHeightG, 0, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(0, FigureParams.PlatformHeightG, 0, -50, 1);
+
+
+            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, -50, 1);
+
+            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+
+            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, -50, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, 5, true);
+
+
+
+
+        }
+
+        private void CreateStairsBorder()
+        {
+            ksEntity iSketch;
+            ksSketchDefinition iDefinitionSketch;
+
+            CreateSketch(out iSketch, out iDefinitionSketch);
+
+            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(0, 0, 0, -15 , 1);
+            iDocument2D.ksLineSeg(0, -15, -100, FigureParams.PlatformHeightG - 15, 1);
+
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG -15, -100, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG , 0, 0, 1);
+
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, 2, false);
+
+            CreateSketch(out iSketch, out iDefinitionSketch, FigureParams.SlideWidthA);
+
+            iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(0,0, 0, -15, 1);
+            iDocument2D.ksLineSeg(0, -15 , -100, FigureParams.PlatformHeightG - 15, 1);
+
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG - 15, -100, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG, 0, 0, 1);
+
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, 2, true);
+        }
+
 
         /// <summary>
         /// Создать эскиз

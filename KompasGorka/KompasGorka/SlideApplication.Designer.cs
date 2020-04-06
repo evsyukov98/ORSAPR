@@ -290,6 +290,7 @@
             this.Controls.Add(this.buttonBuildSlide);
             this.Name = "SlideApplication";
             this.Text = "SlideApplication";
+            this.Load += new System.EventHandler(this.SlideApplication_Load);
             this.groupBoxSlide.ResumeLayout(false);
             this.groupBoxSlide.PerformLayout();
             this.ResumeLayout(false);
