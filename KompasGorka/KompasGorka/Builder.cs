@@ -28,7 +28,10 @@ namespace KompasGorka
             CreatePillar();
 
             CreateStairsBorder();
-           
+
+            CreateStairs();
+
+
         }
         
         // С комментариями
@@ -347,11 +350,11 @@ namespace KompasGorka
 
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
-            iDocument2D.ksLineSeg(0, 0, 0, -15 , 1);
-            iDocument2D.ksLineSeg(0, -15, -100, FigureParams.PlatformHeightG - 15, 1);
+            iDocument2D.ksLineSeg(0, 0+3, 0, -15+3 , 1);
+            iDocument2D.ksLineSeg(0, -15+3, -100, FigureParams.PlatformHeightG - 15+3, 1);
 
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG -15, -100, FigureParams.PlatformHeightG, 1);
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG , 0, 0, 1);
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG -15+3, -100, FigureParams.PlatformHeightG+3, 1);
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG +3, 0, 0+3, 1);
 
 
             iDefinitionSketch.EndEdit();
@@ -362,16 +365,52 @@ namespace KompasGorka
 
             iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
-            iDocument2D.ksLineSeg(0,0, 0, -15, 1);
-            iDocument2D.ksLineSeg(0, -15 , -100, FigureParams.PlatformHeightG - 15, 1);
+            iDocument2D.ksLineSeg(0, 0 + 3, 0, -15 + 3, 1);
+            iDocument2D.ksLineSeg(0, -15 + 3, -100, FigureParams.PlatformHeightG - 15 + 3, 1);
 
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG - 15, -100, FigureParams.PlatformHeightG, 1);
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG, 0, 0, 1);
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG - 15 + 3, -100, FigureParams.PlatformHeightG + 3, 1);
+            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG + 3, 0, 0 + 3, 1);
 
 
             iDefinitionSketch.EndEdit();
 
             ExctrusionSketch(iPart, iSketch, 2, true);
+        }
+
+        private void CreateStair(double x, double y)
+        {
+            ksEntity iSketch;
+            ksSketchDefinition iDefinitionSketch;
+
+            CreateSketch(out iSketch, out iDefinitionSketch);
+
+            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
+
+            iDocument2D.ksLineSeg(x, y, x, y +2, 1);
+            iDocument2D.ksLineSeg(x, y +2, x - 15, y +2, 1);
+            iDocument2D.ksLineSeg(x - 15, y +2, x - 15, y, 1);
+            iDocument2D.ksLineSeg(x - 15, y, x, y, 1);
+
+            iDefinitionSketch.EndEdit();
+
+            ExctrusionSketch(iPart, iSketch, 20, true);
+        }
+
+        private void CreateStairs()
+        {
+            double x1 = 0;
+            double y1 = 0;
+            double formula = FigureParams.PlatformHeightG / 8; 
+
+            double x = -100 / formula;
+            double y = FigureParams.PlatformHeightG / formula;
+
+            for( int i = 0; i < formula ; i++)
+            {
+                CreateStair(x1,y1);
+                x1 = x1 + x;
+                y1 = y1 + y;
+            }
         }
 
 
@@ -458,8 +497,8 @@ namespace KompasGorka
             entityExtr.Create();
         }
 
-        /* 
-        // Построить коробку на поверхности другой (пока не работает)
+        // Построить коробку на поверхности другой (не понял как выделять обьекты)
+        /*
         private void CreateCaseFace(ksPart iPart)
         {
             // Создаем обьект эскиза 
@@ -492,5 +531,47 @@ namespace KompasGorka
             // Закончить редактировать эскиз
             iDefinitionSketch.EndEdit();
         }*/
+
+        // Построить массив обьектов по кривой ( так и не понял как выделять обьекты)
+        /*       private void CreateStairsArray()
+       {
+           ksEntity obj = iPart.NewEntity((short)Obj3dType.o3d_curveCopy);         
+           ksCurveCopyDefinition iCurveArrayDef = (ksCurveCopyDefinition)obj.GetDefinition();
+
+           iCurveArrayDef.count = 53;
+           iCurveArrayDef.factor = false;
+           iCurveArrayDef.fullCurve = true;
+           iCurveArrayDef.geomArray = false;
+           iCurveArrayDef.keepAngle = true;
+           iCurveArrayDef.sence = true;
+           iCurveArrayDef.step = 10;
+
+           var iCurveArray = iCurveArrayDef.CurveArray();
+
+           var iCollection = iPart.EntityCollection((short)Obj3dType.o3d_edge);
+
+           iCollection.SelectByPoint(-99.038461538462, 0, -161.461538461539);
+           var iCurve = iCollection.Last();
+           iCurveArray.Add(iCurve);
+           var iArray = iCurveArrayDef.OperationArray();
+           iCollection = iPart.EntityCollection((short)Obj3dType.o3d_edge);
+           iCollection.SelectByPoint(-8.75, 20, 0);
+           var iEdge = iCollection.Last();
+           var iEdgeDefinition = iEdge.GetDefinition();
+           var iOperation = iEdgeDefinition.GetOwnerEntity();
+           iArray.Add(iOperation);
+
+           obj.name = "Массив вдоль кривой: 1";
+           var iColorParam = obj.ColorParam();
+           iColorParam.ambient = 0.5f;
+           iColorParam.color = 9474192f;
+           iColorParam.diffuse = 0.6f;
+           iColorParam.emission = 0.5f;
+           iColorParam.shininess = 0.8f;
+           iColorParam.specularity = 0.8f;
+           iColorParam.transparency = 1f;
+           obj.Create();
+       }
+       */
     }
 }
