@@ -30,8 +30,6 @@ namespace KompasGorka
             CreateStairsBorder();
 
             CreateStairs();
-
-
         }
         
         // С комментариями
@@ -173,25 +171,25 @@ namespace KompasGorka
 
             iDocument2D.ksLineSeg(
                 FigureParams.PlatformLengthF, 
-                -FigureParams.BorderHightC, 
+                -FigureParams.BorderHeightC, 
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE, 
-                -FigureParams.BorderHightC, 1);
+                -FigureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE,
-                -FigureParams.BorderHightC,
+                -FigureParams.BorderHeightC,
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE +FigureParams.MainLengthL, 
-                FigureParams.PlatformHeightG -3 - FigureParams.BorderHightC, 1);
+                FigureParams.PlatformHeightG -3 - FigureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL +FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC, 1);
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
                  FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
                 FigureParams.PlatformHeightG, 1);
 
@@ -217,7 +215,7 @@ namespace KompasGorka
                  FigureParams.PlatformLengthF,
                 3,
                 FigureParams.PlatformLengthF,
-                -FigureParams.BorderHightC, 1);
+                -FigureParams.BorderHeightC, 1);
 
             iDefinitionSketch.EndEdit();
 
@@ -230,25 +228,25 @@ namespace KompasGorka
 
             iDocument2D.ksLineSeg(
                 FigureParams.PlatformLengthF,
-                -FigureParams.BorderHightC,
+                -FigureParams.BorderHeightC,
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE,
-                -FigureParams.BorderHightC, 1);
+                -FigureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE,
-                -FigureParams.BorderHightC,
+                -FigureParams.BorderHeightC,
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC, 1);
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC, 1);
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
                  FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHightC,
+                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
                 FigureParams.PlatformHeightG, 1);
 
@@ -274,7 +272,7 @@ namespace KompasGorka
                  FigureParams.PlatformLengthF,
                 3,
                 FigureParams.PlatformLengthF,
-                -FigureParams.BorderHightC, 1);
+                -FigureParams.BorderHeightC, 1);
 
             iDefinitionSketch.EndEdit();
 
@@ -393,7 +391,7 @@ namespace KompasGorka
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 20, true);
+            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
         }
 
         private void CreateStairs()
@@ -412,7 +410,6 @@ namespace KompasGorka
                 y1 = y1 + y;
             }
         }
-
 
         /// <summary>
         /// Создать эскиз

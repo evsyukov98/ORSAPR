@@ -19,7 +19,7 @@ namespace KompasGorka
         public FigureParams(int borderHeightC,int endLengthD, int mainLengthL, 
             int platformHeightG, int platformLengthF, int slideWidthA, int startLengthE)
         {
-            BorderHightC = borderHeightC;
+            BorderHeightC = borderHeightC;
             EndLengthD = endLengthD;
             MainLengthL = mainLengthL;
             PlatformHeightG = platformHeightG;
@@ -28,7 +28,7 @@ namespace KompasGorka
             StartLengthE = startLengthE;              
         }
 
-        public int BorderHightC {
+        public int BorderHeightC {
             get => _borderHeightC;
             set 
             {

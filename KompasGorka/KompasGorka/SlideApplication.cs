@@ -1,16 +1,17 @@
 ﻿using Kompas6API5;
 using Kompas6Constants3D;
 using System;
+using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace KompasGorka
 {
     public partial class SlideApplication : Form
     {
-        private FigureParams figureParams;
+        private FigureParams _figureParams;
 
-        private KompasConnector kompasConnector;
-
+        private KompasConnector _kompasConnector;
 
         public SlideApplication()
         {
@@ -28,27 +29,38 @@ namespace KompasGorka
         
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            kompasConnector = new KompasConnector(); // подключаем компас
+            _kompasConnector = new KompasConnector(); 
         }
 
-        // Кнопка построить
         private void ButtonBuildSlide_Click(object sender, EventArgs e)
         {
-            kompasConnector.NewDocument();
-
-            figureParams = new FigureParams(int.Parse(textBoxC.Text),
+            _kompasConnector.NewDocument();
+            
+            _figureParams = new FigureParams(int.Parse(textBoxC.Text),
                 int.Parse(textBoxD.Text), int.Parse(textBoxL.Text),
                 int.Parse(textBoxG.Text), int.Parse(textBoxF.Text),
                 int.Parse(textBoxA.Text), int.Parse(textBoxE.Text));
 
-            
-
             Builder builder = new Builder();
 
-            builder.Build(kompasConnector.iPart, figureParams);
+            builder.Build(_kompasConnector.iPart, _figureParams);
         }
 
-        private void SlideApplication_Load(object sender, EventArgs e)
+        private void textBoxG_TextChanged(object sender, EventArgs e)
+        {
+            var pattern = @"\w+";
+            if (Regex.IsMatch(textBoxG.Text, pattern))
+            {
+                
+            }
+            else
+            {
+                
+            }
+        }
+
+
+        private void textBoxF_TextChanged(object sender, EventArgs e)
         {
 
         }

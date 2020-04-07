@@ -80,28 +80,29 @@
             this.textBoxF.Location = new System.Drawing.Point(141, 22);
             this.textBoxF.Name = "textBoxF";
             this.textBoxF.Size = new System.Drawing.Size(100, 20);
-            this.textBoxF.TabIndex = 2;
+            this.textBoxF.TabIndex = 1;
+            this.textBoxF.TextChanged += new System.EventHandler(this.textBoxF_TextChanged);
             // 
             // textBoxL
             // 
             this.textBoxL.Location = new System.Drawing.Point(141, 142);
             this.textBoxL.Name = "textBoxL";
             this.textBoxL.Size = new System.Drawing.Size(100, 20);
-            this.textBoxL.TabIndex = 3;
+            this.textBoxL.TabIndex = 4;
             // 
             // textBoxD
             // 
             this.textBoxD.Location = new System.Drawing.Point(141, 102);
             this.textBoxD.Name = "textBoxD";
             this.textBoxD.Size = new System.Drawing.Size(100, 20);
-            this.textBoxD.TabIndex = 4;
+            this.textBoxD.TabIndex = 3;
             // 
             // textBoxE
             // 
             this.textBoxE.Location = new System.Drawing.Point(141, 61);
             this.textBoxE.Name = "textBoxE";
             this.textBoxE.Size = new System.Drawing.Size(100, 20);
-            this.textBoxE.TabIndex = 5;
+            this.textBoxE.TabIndex = 2;
             // 
             // labelPlatformLeght
             // 
@@ -210,7 +211,8 @@
             this.textBoxG.Location = new System.Drawing.Point(141, 258);
             this.textBoxG.Name = "textBoxG";
             this.textBoxG.Size = new System.Drawing.Size(100, 20);
-            this.textBoxG.TabIndex = 15;
+            this.textBoxG.TabIndex = 7;
+            this.textBoxG.TextChanged += new System.EventHandler(this.textBoxG_TextChanged);
             // 
             // labelPlatformHeight
             // 
@@ -271,14 +273,14 @@
             this.textBoxC.Location = new System.Drawing.Point(141, 219);
             this.textBoxC.Name = "textBoxC";
             this.textBoxC.Size = new System.Drawing.Size(100, 20);
-            this.textBoxC.TabIndex = 8;
+            this.textBoxC.TabIndex = 6;
             // 
             // textBoxA
             // 
             this.textBoxA.Location = new System.Drawing.Point(141, 183);
             this.textBoxA.Name = "textBoxA";
             this.textBoxA.Size = new System.Drawing.Size(100, 20);
-            this.textBoxA.TabIndex = 7;
+            this.textBoxA.TabIndex = 5;
             // 
             // SlideApplication
             // 
@@ -290,7 +292,6 @@
             this.Controls.Add(this.buttonBuildSlide);
             this.Name = "SlideApplication";
             this.Text = "SlideApplication";
-            this.Load += new System.EventHandler(this.SlideApplication_Load);
             this.groupBoxSlide.ResumeLayout(false);
             this.groupBoxSlide.PerformLayout();
             this.ResumeLayout(false);

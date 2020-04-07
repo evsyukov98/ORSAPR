@@ -25,15 +25,12 @@ namespace KompasGorka
         }
 
         // Кнопка запустить компас, Береме контроль _kompas, и интерфейсом
-        public void TakeKompas()
+        private void TakeKompas()
         {
-            // если окно компаса не включено
             // создать обьект компаса (т.е. обьект будет в процессе но не виден)
-            if (_kompas == null)
-            {
-                Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
-                _kompas = (KompasObject)Activator.CreateInstance(t);
-            }
+            Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
+            _kompas = (KompasObject)Activator.CreateInstance(t);
+            
 
             // показать компас          
             _kompas.Visible = true;
