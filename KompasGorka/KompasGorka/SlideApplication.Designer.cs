@@ -1,4 +1,4 @@
-﻿namespace KompasGorka
+﻿namespace KompasGorka.View
 {
     partial class SlideApplication
     {
@@ -30,10 +30,10 @@
         {
             this.buttonBuildSlide = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
-            this.TextBoxF = new System.Windows.Forms.TextBox();
-            this.TextBoxL = new System.Windows.Forms.TextBox();
-            this.TextBoxD = new System.Windows.Forms.TextBox();
-            this.TextBoxE = new System.Windows.Forms.TextBox();
+            this.textBoxF = new System.Windows.Forms.TextBox();
+            this.textBoxL = new System.Windows.Forms.TextBox();
+            this.textBoxD = new System.Windows.Forms.TextBox();
+            this.textBoxE = new System.Windows.Forms.TextBox();
             this.labelPlatformLeght = new System.Windows.Forms.Label();
             this.groupBoxSlide = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -43,15 +43,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.TextBoxG = new System.Windows.Forms.TextBox();
+            this.textBoxG = new System.Windows.Forms.TextBox();
             this.labelPlatformHeight = new System.Windows.Forms.Label();
             this.labelBorderHeight = new System.Windows.Forms.Label();
             this.labelSlideWidth = new System.Windows.Forms.Label();
             this.labelSlideBeginLegth = new System.Windows.Forms.Label();
             this.labelSlideLegth = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.TextBoxC = new System.Windows.Forms.TextBox();
-            this.TextBoxA = new System.Windows.Forms.TextBox();
+            this.textBoxC = new System.Windows.Forms.TextBox();
+            this.textBoxA = new System.Windows.Forms.TextBox();
             this.groupBoxSlide.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,33 +75,33 @@
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
-            // TextBoxF
+            // textBoxF
             // 
-            this.TextBoxF.Location = new System.Drawing.Point(141, 131);
-            this.TextBoxF.Name = "TextBoxF";
-            this.TextBoxF.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxF.TabIndex = 1;
+            this.textBoxF.Location = new System.Drawing.Point(141, 131);
+            this.textBoxF.Name = "textBoxF";
+            this.textBoxF.Size = new System.Drawing.Size(100, 20);
+            this.textBoxF.TabIndex = 1;
             // 
-            // TextBoxL
+            // textBoxL
             // 
-            this.TextBoxL.Location = new System.Drawing.Point(141, 79);
-            this.TextBoxL.Name = "TextBoxL";
-            this.TextBoxL.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxL.TabIndex = 4;
+            this.textBoxL.Location = new System.Drawing.Point(141, 79);
+            this.textBoxL.Name = "textBoxL";
+            this.textBoxL.Size = new System.Drawing.Size(100, 20);
+            this.textBoxL.TabIndex = 4;
             // 
-            // TextBoxD
+            // textBoxD
             // 
-            this.TextBoxD.Location = new System.Drawing.Point(141, 53);
-            this.TextBoxD.Name = "TextBoxD";
-            this.TextBoxD.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxD.TabIndex = 3;
+            this.textBoxD.Location = new System.Drawing.Point(141, 53);
+            this.textBoxD.Name = "textBoxD";
+            this.textBoxD.Size = new System.Drawing.Size(100, 20);
+            this.textBoxD.TabIndex = 3;
             // 
-            // TextBoxE
+            // textBoxE
             // 
-            this.TextBoxE.Location = new System.Drawing.Point(141, 183);
-            this.TextBoxE.Name = "TextBoxE";
-            this.TextBoxE.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxE.TabIndex = 2;
+            this.textBoxE.Location = new System.Drawing.Point(141, 183);
+            this.textBoxE.Name = "textBoxE";
+            this.textBoxE.Size = new System.Drawing.Size(100, 20);
+            this.textBoxE.TabIndex = 2;
             // 
             // labelPlatformLeght
             // 
@@ -121,20 +121,20 @@
             this.groupBoxSlide.Controls.Add(this.label4);
             this.groupBoxSlide.Controls.Add(this.label3);
             this.groupBoxSlide.Controls.Add(this.label1);
-            this.groupBoxSlide.Controls.Add(this.TextBoxG);
+            this.groupBoxSlide.Controls.Add(this.textBoxG);
             this.groupBoxSlide.Controls.Add(this.labelPlatformHeight);
             this.groupBoxSlide.Controls.Add(this.labelBorderHeight);
             this.groupBoxSlide.Controls.Add(this.labelSlideWidth);
             this.groupBoxSlide.Controls.Add(this.labelSlideBeginLegth);
             this.groupBoxSlide.Controls.Add(this.labelSlideLegth);
             this.groupBoxSlide.Controls.Add(this.label2);
-            this.groupBoxSlide.Controls.Add(this.TextBoxC);
-            this.groupBoxSlide.Controls.Add(this.TextBoxA);
-            this.groupBoxSlide.Controls.Add(this.TextBoxL);
+            this.groupBoxSlide.Controls.Add(this.textBoxC);
+            this.groupBoxSlide.Controls.Add(this.textBoxA);
+            this.groupBoxSlide.Controls.Add(this.textBoxL);
             this.groupBoxSlide.Controls.Add(this.labelPlatformLeght);
-            this.groupBoxSlide.Controls.Add(this.TextBoxF);
-            this.groupBoxSlide.Controls.Add(this.TextBoxE);
-            this.groupBoxSlide.Controls.Add(this.TextBoxD);
+            this.groupBoxSlide.Controls.Add(this.textBoxF);
+            this.groupBoxSlide.Controls.Add(this.textBoxE);
+            this.groupBoxSlide.Controls.Add(this.textBoxD);
             this.groupBoxSlide.Location = new System.Drawing.Point(12, 41);
             this.groupBoxSlide.Name = "groupBoxSlide";
             this.groupBoxSlide.Size = new System.Drawing.Size(351, 219);
@@ -205,12 +205,12 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "(от 40 до 120) см";
             // 
-            // TextBoxG
+            // textBoxG
             // 
-            this.TextBoxG.Location = new System.Drawing.Point(141, 105);
-            this.TextBoxG.Name = "TextBoxG";
-            this.TextBoxG.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxG.TabIndex = 7;
+            this.textBoxG.Location = new System.Drawing.Point(141, 105);
+            this.textBoxG.Name = "textBoxG";
+            this.textBoxG.Size = new System.Drawing.Size(100, 20);
+            this.textBoxG.TabIndex = 7;
             // 
             // labelPlatformHeight
             // 
@@ -266,19 +266,19 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Длина конца горки (D):";
             // 
-            // TextBoxC
+            // textBoxC
             // 
-            this.TextBoxC.Location = new System.Drawing.Point(141, 27);
-            this.TextBoxC.Name = "TextBoxC";
-            this.TextBoxC.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxC.TabIndex = 6;
+            this.textBoxC.Location = new System.Drawing.Point(141, 27);
+            this.textBoxC.Name = "textBoxC";
+            this.textBoxC.Size = new System.Drawing.Size(100, 20);
+            this.textBoxC.TabIndex = 6;
             // 
-            // TextBoxA
+            // textBoxA
             // 
-            this.TextBoxA.Location = new System.Drawing.Point(141, 157);
-            this.TextBoxA.Name = "TextBoxA";
-            this.TextBoxA.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxA.TabIndex = 5;
+            this.textBoxA.Location = new System.Drawing.Point(141, 157);
+            this.textBoxA.Name = "textBoxA";
+            this.textBoxA.Size = new System.Drawing.Size(100, 20);
+            this.textBoxA.TabIndex = 5;
             // 
             // SlideApplication
             // 
@@ -288,6 +288,7 @@
             this.Controls.Add(this.groupBoxSlide);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.buttonBuildSlide);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SlideApplication";
             this.Text = "SlideApplication";
             this.groupBoxSlide.ResumeLayout(false);
@@ -300,18 +301,18 @@
 
         private System.Windows.Forms.Button buttonBuildSlide;
         private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.TextBox TextBoxF;
-        private System.Windows.Forms.TextBox TextBoxL;
-        private System.Windows.Forms.TextBox TextBoxD;
-        private System.Windows.Forms.TextBox TextBoxE;
+        private System.Windows.Forms.TextBox textBoxF;
+        private System.Windows.Forms.TextBox textBoxL;
+        private System.Windows.Forms.TextBox textBoxD;
+        private System.Windows.Forms.TextBox textBoxE;
         private System.Windows.Forms.Label labelPlatformLeght;
         private System.Windows.Forms.GroupBox groupBoxSlide;
         private System.Windows.Forms.Label labelSlideBeginLegth;
         private System.Windows.Forms.Label labelSlideLegth;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox TextBoxC;
-        private System.Windows.Forms.TextBox TextBoxA;
-        private System.Windows.Forms.TextBox TextBoxG;
+        private System.Windows.Forms.TextBox textBoxC;
+        private System.Windows.Forms.TextBox textBoxA;
+        private System.Windows.Forms.TextBox textBoxG;
         private System.Windows.Forms.Label labelPlatformHeight;
         private System.Windows.Forms.Label labelBorderHeight;
         private System.Windows.Forms.Label labelSlideWidth;

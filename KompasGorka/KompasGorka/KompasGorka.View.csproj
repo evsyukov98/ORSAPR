@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3BCC6297-C0E2-4847-83BD-27D3BC0775C8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>KompasGorka</RootNamespace>
-    <AssemblyName>KompasGorka</AssemblyName>
+    <RootNamespace>KompasGorka.View</RootNamespace>
+    <AssemblyName>KompasGorka.View</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,9 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builder.cs" />
-    <Compile Include="FigureParams.cs" />
-    <Compile Include="KompasConnector.cs" />
     <Compile Include="SlideApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +65,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -128,6 +126,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KompasGorka.Model\KompasGorka.Model.csproj">
+      <Project>{e6bb4e46-6988-4aeb-acf8-9ce2d727172c}</Project>
+      <Name>KompasGorka.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

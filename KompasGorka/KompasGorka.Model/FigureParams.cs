@@ -1,36 +1,42 @@
 ﻿using System;
 
-namespace KompasGorka
+namespace KompasGorka.Model
 {
     /// <summary>
     /// Класс параметров фигуры
     /// </summary>
-    class FigureParams
+    public class FigureParams
     {
         /// <summary>
         /// Высота бордюра
         /// </summary>
         private int _borderHeightC;
+
         /// <summary>
         /// Длина конца горки
         /// </summary>
         private int _endLengthD;
+
         /// <summary>
         /// Длина горки
         /// </summary>
         private int _mainLengthL;
+
         /// <summary>
         /// Высота платформы
         /// </summary>
         private int _platformHeightG;
+
         /// <summary>
         /// Длина платформы
         /// </summary>
         private int _platformLengthF;
+
         /// <summary>
         /// Ширина платформы
         /// </summary>
         private int _slideWidthA;
+
         /// <summary>
         /// Длина начала горки
         /// </summary>
@@ -46,8 +52,13 @@ namespace KompasGorka
         /// <param name="platformLengthF">Длина платформы</param>
         /// <param name="slideWidthA">Ширина платформы</param>
         /// <param name="startLengthE">Длина начала горки</param>
-        public FigureParams(int borderHeightC,int endLengthD, int mainLengthL, 
-            int platformHeightG, int platformLengthF, int slideWidthA, int startLengthE)
+        public FigureParams(int borderHeightC,
+            int endLengthD, 
+            int mainLengthL, 
+            int platformHeightG, 
+            int platformLengthF, 
+            int slideWidthA, 
+            int startLengthE)
         {
             BorderHeightC = borderHeightC;
             EndLengthD = endLengthD;
@@ -67,7 +78,8 @@ namespace KompasGorka
             {
                 if (value < 8 || value > 32)
                 {
-                    throw new ArgumentException("Значение параметра -Высоты бордюра (C) должно находиться в диапозоне от 8 до 32");
+                    throw new ArgumentException("Значение параметра -Высоты бордюра (C) " +
+                                                "должно находиться в диапозоне от 8 до 32");
                 }
                     
                 _borderHeightC = value;
@@ -80,11 +92,13 @@ namespace KompasGorka
         public int EndLengthD
         {
             get => _endLengthD;
+
             set
             {
                 if(value < 20 || value > 60)
                 {
-                    throw new ArgumentException("Значение параметра -Длина конца горки (D) должно находиться в диапозоне от 20 до 60");
+                    throw new ArgumentException("Значение параметра -Длина конца горки (D) " +
+                                                "должно находиться в диапозоне от 20 до 60");
                 }
                 _endLengthD = value;
             }
@@ -96,11 +110,13 @@ namespace KompasGorka
         public int MainLengthL
         {
             get => _mainLengthL;
+
             set
             {
                 if (value < 80 || value > 240)
                 {
-                    throw new ArgumentException("Значение параметра -Длина горки (L) должно находиться в диапозоне от 80 до 240");
+                    throw new ArgumentException("Значение параметра -Длина горки (L) " +
+                                                "должно находиться в диапозоне от 80 до 240");
                 }
                 _mainLengthL = value;
             }
@@ -112,11 +128,13 @@ namespace KompasGorka
         public int PlatformHeightG
         {
             get => _platformHeightG;
+
             set
             {
                 if (value < 40 || value > 160)
                 {
-                    throw new ArgumentException("Значение параметра -Высота платформы (G) должно находиться в диапозоне от 40 до 160");
+                    throw new ArgumentException("Значение параметра -Высота платформы (G) " +
+                                                "должно находиться в диапозоне от 40 до 160");
                 }
                 _platformHeightG = value;
             }
@@ -128,11 +146,13 @@ namespace KompasGorka
         public int PlatformLengthF
         {
             get => _platformLengthF;
+
             set
             {
                 if (value < 40 || value > 120)
                 {
-                    throw new ArgumentException("Значение параметра -Длина платформы (F) должно находиться в диапозоне от 40 до 120");
+                    throw new ArgumentException("Значение параметра -Длина платформы (F) " +
+                                                "должно находиться в диапозоне от 40 до 120");
                 }
                 _platformLengthF = value;
             }
@@ -144,11 +164,13 @@ namespace KompasGorka
         public int SlideWidthA
         {
             get => _slideWidthA;
+
             set
             {
                 if (value < 20 || value > 80)
                 {
-                    throw new ArgumentException("Значение параметра -Ширина горки (A) должно находиться в диапозоне от 20 до 80");
+                    throw new ArgumentException("Значение параметра -Ширина горки (A) " +
+                                                "должно находиться в диапозоне от 20 до 80");
                 }
                 _slideWidthA = value;
             }
@@ -160,15 +182,16 @@ namespace KompasGorka
         public int StartLengthE
         {
             get => _startLengthE;
+
             set
             {
                 if (value < 20 || value > 60)
                 {
-                    throw new ArgumentException("Значение параметра -Длина начала горки (E) должно находиться в диапозоне от 20 до 60");
+                    throw new ArgumentException("Значение параметра -Длина начала горки (E) " +
+                                                "должно находиться в диапозоне от 20 до 60");
                 }
                 _startLengthE = value;
             }
         }
-
     }
 }

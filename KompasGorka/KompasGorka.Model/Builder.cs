@@ -1,12 +1,12 @@
 ﻿using Kompas6API5;
 using Kompas6Constants3D;
 
-namespace KompasGorka
+namespace KompasGorka.Model
 {
     /// <summary>
     /// Класс для построения фигуры
     /// </summary>
-    class Builder
+    public class Builder
     {
         /// <summary>
         /// Параметры фигуры
@@ -26,6 +26,7 @@ namespace KompasGorka
         public void Build(ksPart iPart, FigureParams figureParams)
         {
             _figureParams = figureParams;
+
             _iPart = iPart;
 
             CreatePlatform();
@@ -308,6 +309,7 @@ namespace KompasGorka
         private void CreatePillar()
         {
             ksEntity iSketch;
+
             ksSketchDefinition iDefinitionSketch;
 
             CreateSketch(out iSketch, out iDefinitionSketch);
@@ -315,20 +317,12 @@ namespace KompasGorka
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
             
             iDocument2D.ksLineSeg(0, -50, 5, -50, 1);
-
             iDocument2D.ksLineSeg(5, -50, 5, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(5, _figureParams.PlatformHeightG, 0, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(0,_figureParams.PlatformHeightG, 0, -50, 1);
-
-
             iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, -50, 1);
-
             iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, -50, 1);
 
             iDefinitionSketch.EndEdit();
@@ -340,20 +334,12 @@ namespace KompasGorka
             iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(0, -50, 5, -50, 1);
-
             iDocument2D.ksLineSeg(5, -50, 5, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(5, _figureParams.PlatformHeightG, 0, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(0, _figureParams.PlatformHeightG, 0, -50, 1);
-
-
             iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, -50, 1);
-
             iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
-
             iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, -50, 1);
 
             iDefinitionSketch.EndEdit();
@@ -379,7 +365,6 @@ namespace KompasGorka
             iDocument2D.ksLineSeg(-100, _figureParams.PlatformHeightG +3, 0, 0+3, 1);
 
             iDefinitionSketch.EndEdit();
-
 
             ExctrusionSketch(_iPart, iSketch, 2, false);
 
@@ -430,7 +415,7 @@ namespace KompasGorka
             double y1 = 0;
             if (_figureParams != null)
             {
-                double formula = _figureParams.PlatformHeightG / 8; 
+                double formula = _figureParams.PlatformHeightG / 8f; 
 
                 double x = -100 / formula;
                 double y = _figureParams.PlatformHeightG / formula;

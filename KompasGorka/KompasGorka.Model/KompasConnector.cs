@@ -2,13 +2,13 @@
 using Kompas6Constants3D;
 using System;
 
-namespace KompasGorka
+namespace KompasGorka.Model
 {
     /// <summary>
     /// Класс используется для подключения 
     /// к САПР Компас 3Д
     /// </summary>
-    class KompasConnector
+    public class KompasConnector
     { 
         /// <summary>
         /// Главный обьект Компас 3D
