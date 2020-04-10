@@ -1,19 +1,32 @@
 ﻿using Kompas6API5;
 using Kompas6Constants3D;
-using System;
 
 namespace KompasGorka
 {
+    /// <summary>
+    /// Класс для построения фигуры
+    /// </summary>
     class Builder
     {
-        public FigureParams FigureParams;
-        public ksPart iPart;
+        /// <summary>
+        /// Параметры фигуры
+        /// </summary>
+        private FigureParams _figureParams;
 
+        /// <summary>
+        /// Интерфейс компонента
+        /// </summary>
+        private ksPart _iPart;
 
+        /// <summary>
+        /// Построить всю горку
+        /// </summary>
+        /// <param name="iPart"></param>
+        /// <param name="figureParams"></param>
         public void Build(ksPart iPart, FigureParams figureParams)
         {
-            FigureParams = figureParams;
-            this.iPart = iPart;
+            _figureParams = figureParams;
+            _iPart = iPart;
 
             CreatePlatform();
 
@@ -32,7 +45,9 @@ namespace KompasGorka
             CreateStairs();
         }
         
-        // С комментариями
+        /// <summary>
+        /// Создать платформу
+        /// </summary>
         private void CreatePlatform()
         {
             ksEntity iSketch;
@@ -41,22 +56,21 @@ namespace KompasGorka
 
             CreateSketch(out iSketch, out iDefinitionSketch);
 
-
-            // Интерфейс для рисования = на скетче;
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
-            // Построить линию (x1,y1, x2,y2, style)
             iDocument2D.ksLineSeg(0, 0, 0, 3, 1);
-            iDocument2D.ksLineSeg(0, 3, FigureParams.PlatformLengthF, 3, 1);
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 3, FigureParams.PlatformLengthF, 0, 1);
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF, 0, 0, 0, 1);
+            iDocument2D.ksLineSeg(0, 3, _figureParams.PlatformLengthF, 3, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF, 3, _figureParams.PlatformLengthF, 0, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF, 0, 0, 0, 1);
 
-            // Закончить редактировать эскиз
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+            ExctrusionSketch(_iPart, iSketch, _figureParams.SlideWidthA, true);
         }
 
+        /// <summary>
+        /// Создать начало горки
+        /// </summary>
         private void CreateStartSlide()
         {
             ksEntity iSketch;
@@ -68,23 +82,26 @@ namespace KompasGorka
 
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF , 0, 
-                FigureParams.PlatformLengthF , 3, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF , 0, 
+                _figureParams.PlatformLengthF , 3, 1);
 
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF , 3, 
-                FigureParams.PlatformLengthF  +FigureParams.StartLengthE, 3, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF , 3, 
+                _figureParams.PlatformLengthF  +_figureParams.StartLengthE, 3, 1);
 
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF  + FigureParams.StartLengthE, 3,
-                FigureParams.PlatformLengthF  + FigureParams.StartLengthE, 0, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF  + _figureParams.StartLengthE, 3,
+                _figureParams.PlatformLengthF  + _figureParams.StartLengthE, 0, 1);
 
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF  + FigureParams.StartLengthE, 0,
-                FigureParams.PlatformLengthF , 0, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF  + _figureParams.StartLengthE, 0,
+                _figureParams.PlatformLengthF , 0, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+            ExctrusionSketch(_iPart, iSketch, _figureParams.SlideWidthA, true);
         }
 
+        /// <summary>
+        /// Создать горку
+        /// </summary>
         private void CreateSlide()
         {
             ksEntity iSketch;
@@ -96,29 +113,32 @@ namespace KompasGorka
 
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF +FigureParams.StartLengthE , 0,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE, 3, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF +_figureParams.StartLengthE , 0,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE, 3, 1);
 
-            iDocument2D.ksLineSeg(FigureParams.PlatformLengthF + FigureParams.StartLengthE, 3,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE +FigureParams.MainLengthL, 
-                FigureParams.PlatformHeightG, 1);
-
-            iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3, 1);
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF + _figureParams.StartLengthE, 3,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE +_figureParams.MainLengthL, 
+                _figureParams.PlatformHeightG, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL, 
-                 FigureParams.PlatformHeightG - 3,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE , 0, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG - 3, 1);
+
+            iDocument2D.ksLineSeg(
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL, 
+                 _figureParams.PlatformHeightG - 3,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE , 0, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+            ExctrusionSketch(_iPart, iSketch, _figureParams.SlideWidthA, true);
         }
 
+        /// <summary>
+        /// Создать конец горки
+        /// </summary>
         private void CreateEndSlide()
         {
             ksEntity iSketch;
@@ -131,34 +151,37 @@ namespace KompasGorka
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE+ FigureParams.MainLengthL, 
-                FigureParams.PlatformHeightG - 3,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE+ _figureParams.MainLengthL, 
+                _figureParams.PlatformHeightG - 3,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG, 1);
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG, 1);
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL +FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL +FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL +_figureParams.EndLengthD,
+                _figureParams.PlatformHeightG,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL +_figureParams.EndLengthD,
+                _figureParams.PlatformHeightG - 3, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                 FigureParams.PlatformHeightG - 3,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE+FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3, 1);
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                 _figureParams.PlatformHeightG - 3,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE+_figureParams.MainLengthL,
+                _figureParams.PlatformHeightG - 3, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+            ExctrusionSketch(_iPart, iSketch, _figureParams.SlideWidthA, true);
         }
-
+        
+        /// <summary>
+        /// Создать бортики
+        /// </summary>
         private void CreateBorder()
         {
             ksEntity iSketch;
@@ -170,115 +193,118 @@ namespace KompasGorka
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF, 
-                -FigureParams.BorderHeightC, 
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE, 
-                -FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF, 
+                -_figureParams.BorderHeightC, 
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE, 
+                -_figureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
-                -FigureParams.BorderHeightC,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE +FigureParams.MainLengthL, 
-                FigureParams.PlatformHeightG -3 - FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE,
+                -_figureParams.BorderHeightC,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE +_figureParams.MainLengthL, 
+                _figureParams.PlatformHeightG -3 - _figureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL +FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG - 3 - _figureParams.BorderHeightC,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL +_figureParams.EndLengthD,
+                _figureParams.PlatformHeightG - 3 - _figureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG, 1);
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG - 3 - _figureParams.BorderHeightC,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG, 1);
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE,
                 3, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE,
                 3,
-                FigureParams.PlatformLengthF,
+                _figureParams.PlatformLengthF,
                 3, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF,
+                 _figureParams.PlatformLengthF,
                 3,
-                FigureParams.PlatformLengthF,
-                -FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF,
+                -_figureParams.BorderHeightC, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 2, false);
+            ExctrusionSketch(_iPart, iSketch, 2, false);
 
-            CreateSketch(out iSketch, out iDefinitionSketch, FigureParams.SlideWidthA);
+            CreateSketch(out iSketch, out iDefinitionSketch, _figureParams.SlideWidthA);
 
 
             iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF,
-                -FigureParams.BorderHeightC,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
-                -FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF,
+                -_figureParams.BorderHeightC,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE,
+                -_figureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
-                -FigureParams.BorderHeightC,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE,
+                -_figureParams.BorderHeightC,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG - 3 - _figureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG - 3 - _figureParams.BorderHeightC,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG - 3 - _figureParams.BorderHeightC, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG - 3 - FigureParams.BorderHeightC,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG, 1);
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG - 3 - _figureParams.BorderHeightC,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL + FigureParams.EndLengthD,
-                FigureParams.PlatformHeightG,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG, 1);
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL + _figureParams.EndLengthD,
+                _figureParams.PlatformHeightG,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE + FigureParams.MainLengthL,
-                FigureParams.PlatformHeightG,
-                FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE + _figureParams.MainLengthL,
+                _figureParams.PlatformHeightG,
+                _figureParams.PlatformLengthF + _figureParams.StartLengthE,
                 3, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF + FigureParams.StartLengthE,
+                 _figureParams.PlatformLengthF + _figureParams.StartLengthE,
                 3,
-                FigureParams.PlatformLengthF,
+                _figureParams.PlatformLengthF,
                 3, 1);
 
             iDocument2D.ksLineSeg(
-                 FigureParams.PlatformLengthF,
+                 _figureParams.PlatformLengthF,
                 3,
-                FigureParams.PlatformLengthF,
-                -FigureParams.BorderHeightC, 1);
+                _figureParams.PlatformLengthF,
+                -_figureParams.BorderHeightC, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 2, true);
+            ExctrusionSketch(_iPart, iSketch, 2, true);
         }
 
+        /// <summary>
+        /// Создать балки
+        /// </summary>
         private void CreatePillar()
         {
             ksEntity iSketch;
@@ -290,55 +316,54 @@ namespace KompasGorka
             
             iDocument2D.ksLineSeg(0, -50, 5, -50, 1);
 
-            iDocument2D.ksLineSeg(5, -50, 5, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5, -50, 5, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(5, FigureParams.PlatformHeightG, 0, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5, _figureParams.PlatformHeightG, 0, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(0,FigureParams.PlatformHeightG, 0, -50, 1);
+            iDocument2D.ksLineSeg(0,_figureParams.PlatformHeightG, 0, -50, 1);
 
 
-            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, -50, 1);
+            iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, -50, 1);
 
-            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, -50, 1);
+            iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, -50, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 5, false);
+            ExctrusionSketch(_iPart, iSketch, 5, false);
 
-            CreateSketch(out iSketch, out iDefinitionSketch, FigureParams.SlideWidthA);
+            CreateSketch(out iSketch, out iDefinitionSketch, _figureParams.SlideWidthA);
 
             iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(0, -50, 5, -50, 1);
 
-            iDocument2D.ksLineSeg(5, -50, 5, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5, -50, 5, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(5, FigureParams.PlatformHeightG, 0, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5, _figureParams.PlatformHeightG, 0, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(0, FigureParams.PlatformHeightG, 0, -50, 1);
+            iDocument2D.ksLineSeg(0, _figureParams.PlatformHeightG, 0, -50, 1);
 
 
-            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, -50, 1);
+            iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, -50, 1);
 
-            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, -50, 5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, -50, 5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(5 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 1);
+            iDocument2D.ksLineSeg(5 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 1);
 
-            iDocument2D.ksLineSeg(0 + FigureParams.PlatformLengthF, FigureParams.PlatformHeightG, 0 + FigureParams.PlatformLengthF, -50, 1);
+            iDocument2D.ksLineSeg(0 + _figureParams.PlatformLengthF, _figureParams.PlatformHeightG, 0 + _figureParams.PlatformLengthF, -50, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 5, true);
-
-
-
-
+            ExctrusionSketch(_iPart, iSketch, 5, true);
         }
 
+        /// <summary>
+        /// Создает бортики для лестницы
+        /// </summary>
         private void CreateStairsBorder()
         {
             ksEntity iSketch;
@@ -349,32 +374,34 @@ namespace KompasGorka
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(0, 0+3, 0, -15+3 , 1);
-            iDocument2D.ksLineSeg(0, -15+3, -100, FigureParams.PlatformHeightG - 15+3, 1);
-
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG -15+3, -100, FigureParams.PlatformHeightG+3, 1);
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG +3, 0, 0+3, 1);
-
+            iDocument2D.ksLineSeg(0, -15+3, -100, _figureParams.PlatformHeightG - 15+3, 1);
+            iDocument2D.ksLineSeg(-100, _figureParams.PlatformHeightG -15+3, -100, _figureParams.PlatformHeightG+3, 1);
+            iDocument2D.ksLineSeg(-100, _figureParams.PlatformHeightG +3, 0, 0+3, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 2, false);
 
-            CreateSketch(out iSketch, out iDefinitionSketch, FigureParams.SlideWidthA);
+            ExctrusionSketch(_iPart, iSketch, 2, false);
+
+            CreateSketch(out iSketch, out iDefinitionSketch, _figureParams.SlideWidthA);
 
             iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(0, 0 + 3, 0, -15 + 3, 1);
-            iDocument2D.ksLineSeg(0, -15 + 3, -100, FigureParams.PlatformHeightG - 15 + 3, 1);
-
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG - 15 + 3, -100, FigureParams.PlatformHeightG + 3, 1);
-            iDocument2D.ksLineSeg(-100, FigureParams.PlatformHeightG + 3, 0, 0 + 3, 1);
-
+            iDocument2D.ksLineSeg(0, -15 + 3, -100, _figureParams.PlatformHeightG - 15 + 3, 1);
+            iDocument2D.ksLineSeg(-100, _figureParams.PlatformHeightG - 15 + 3, -100, _figureParams.PlatformHeightG + 3, 1);
+            iDocument2D.ksLineSeg(-100, _figureParams.PlatformHeightG + 3, 0, 0 + 3, 1);
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, 2, true);
+            ExctrusionSketch(_iPart, iSketch, 2, true);
         }
 
+        /// <summary>
+        /// Создать ступеньку
+        /// </summary>
+        /// <param name="x"> Координата по х</param>
+        /// <param name="y"> Координата по у</param>
         private void CreateStair(double x, double y)
         {
             ksEntity iSketch;
@@ -391,23 +418,29 @@ namespace KompasGorka
 
             iDefinitionSketch.EndEdit();
 
-            ExctrusionSketch(iPart, iSketch, FigureParams.SlideWidthA, true);
+            ExctrusionSketch(_iPart, iSketch, _figureParams.SlideWidthA, true);
         }
 
+        /// <summary>
+        /// Создать лестницу
+        /// </summary>
         private void CreateStairs()
         {
             double x1 = 0;
             double y1 = 0;
-            double formula = FigureParams.PlatformHeightG / 8; 
-
-            double x = -100 / formula;
-            double y = FigureParams.PlatformHeightG / formula;
-
-            for( int i = 0; i < formula ; i++)
+            if (_figureParams != null)
             {
-                CreateStair(x1,y1);
-                x1 = x1 + x;
-                y1 = y1 + y;
+                double formula = _figureParams.PlatformHeightG / 8; 
+
+                double x = -100 / formula;
+                double y = _figureParams.PlatformHeightG / formula;
+
+                for( int i = 0; i < formula ; i++)
+                {
+                    CreateStair(x1,y1);
+                    x1 = x1 + x;
+                    y1 = y1 + y;
+                }
             }
         }
 
@@ -419,30 +452,26 @@ namespace KompasGorka
         /// <param name="offset">Смещение от начальной плоскости</param>
         private void CreateSketch(out ksEntity iSketch, out ksSketchDefinition iDefinitionSketch, double offset = 0)
         {
-            #region Создание смещенную плоскость -------------------------
-            // интерфейс смещенной плоскости
-            ksEntity iPlane = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_planeOffset);
+            #region Создать смещенную плоскость 
+            ksEntity iPlane = (ksEntity)_iPart.NewEntity((short)Obj3dType.o3d_planeOffset);
 
-            // Получаем интрефейс настроек смещенной плоскости
             ksPlaneOffsetDefinition iPlaneDefinition = (ksPlaneOffsetDefinition)iPlane.GetDefinition();
 
-            // Настройки : начальная позиция, направление смещения, расстояние от плоскости, принять все настройки (create)
-            iPlaneDefinition.SetPlane(iPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
+            iPlaneDefinition.SetPlane(_iPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
+
             iPlaneDefinition.direction = true;
+
             iPlaneDefinition.offset = offset;
+
             iPlane.Create();
-            #endregion --------------------------------------------------
+            #endregion 
 
-            // Создаем обьект эскиза
-            iSketch = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_sketch);
+            iSketch = (ksEntity)_iPart.NewEntity((short)Obj3dType.o3d_sketch);
 
-            // Получаем интерфейс настроек эскиза
             iDefinitionSketch = iSketch.GetDefinition();
 
-            // Устанавливаем плоскость эскиза
             iDefinitionSketch.SetPlane(iPlane);
 
-            // Теперь когда св-ва эскиза установлены можно его создать 
             iSketch.Create();
         }
 
@@ -455,120 +484,35 @@ namespace KompasGorka
         /// <param name="direction">Направление выдавливания</param>
         private void ExctrusionSketch(ksPart iPart, ksEntity iSketch, double depth, bool direction)
         {
-            //Операция выдавливание
-            ksEntity entityExtr = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_bossExtrusion);
+            ksEntity iExtrusion = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_bossExtrusion);
 
-            //Интерфейс операции выдавливания
-            ksBossExtrusionDefinition extrusionDef = (ksBossExtrusionDefinition)entityExtr.GetDefinition();
+            ksBossExtrusionDefinition extrusionDef = (ksBossExtrusionDefinition)iExtrusion.GetDefinition();
 
-            //Интерфейс структуры параметров выдавливания
-            ksExtrusionParam extrProp = (ksExtrusionParam)extrusionDef.ExtrusionParam();
+            ksExtrusionParam extrusionParam = (ksExtrusionParam)extrusionDef.ExtrusionParam();
 
-            //Эскиз операции выдавливания
             extrusionDef.SetSketch(iSketch);
 
-            //Направление выдавливания
             if (direction == false)
             {
-                extrProp.direction = (short)Direction_Type.dtReverse;
+                extrusionParam.direction = (short)Direction_Type.dtReverse;
             }
             else
             {
-                extrProp.direction = (short)Direction_Type.dtNormal;
+                extrusionParam.direction = (short)Direction_Type.dtNormal;
             }
 
-            //Тип выдавливания
-            extrProp.typeNormal = (short)End_Type.etBlind;
+            extrusionParam.typeNormal = (short)End_Type.etBlind;
 
-            //Глубина выдавливания
             if (direction == false)
             {
-                extrProp.depthReverse = depth;
+                extrusionParam.depthReverse = depth;
             }
             else
             {
-                extrProp.depthNormal = depth;
+                extrusionParam.depthNormal = depth;
             }
 
-            //Создание операции
-            entityExtr.Create();
+            iExtrusion.Create();
         }
-
-        // Построить коробку на поверхности другой (не понял как выделять обьекты)
-        /*
-        private void CreateCaseFace(ksPart iPart)
-        {
-            // Создаем обьект эскиза 
-            ksEntity iSketch = (ksEntity)iPart.NewEntity((short)Obj3dType.o3d_sketch);
-
-            // Получаем интерфейс свойств эскиза
-            ksSketchDefinition iDefinitionSketch = iSketch.GetDefinition();
-
-            ksEntityCollection iCollection =
-                (ksEntityCollection)iPart.EntityCollection((short)Obj3dType.o3d_face);
-
-            #region очевидно что гдето здесь не может выбрать обьект 
-
-            iCollection.SelectByPoint(1, 1.8f, 1.8f);
-
-            // Устанавливаем плоскость эскиза на поверхности другой
-            iDefinitionSketch.SetPlane((ksEntity)iCollection.First());
-
-            #endregion
-
-            // Теперь когда св-ва эскиза установлены можно его создать 
-            iSketch.Create();
-
-            // Берем у эскиза св-ва для черчений линий
-            ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
-
-            // Построить линию (x1,y1, x2,y2, style)
-            iDocument2D.ksLineSeg(1, 2, 3, 3, 1);
-
-            // Закончить редактировать эскиз
-            iDefinitionSketch.EndEdit();
-        }*/
-
-        // Построить массив обьектов по кривой ( так и не понял как выделять обьекты)
-        /*       private void CreateStairsArray()
-       {
-           ksEntity obj = iPart.NewEntity((short)Obj3dType.o3d_curveCopy);         
-           ksCurveCopyDefinition iCurveArrayDef = (ksCurveCopyDefinition)obj.GetDefinition();
-
-           iCurveArrayDef.count = 53;
-           iCurveArrayDef.factor = false;
-           iCurveArrayDef.fullCurve = true;
-           iCurveArrayDef.geomArray = false;
-           iCurveArrayDef.keepAngle = true;
-           iCurveArrayDef.sence = true;
-           iCurveArrayDef.step = 10;
-
-           var iCurveArray = iCurveArrayDef.CurveArray();
-
-           var iCollection = iPart.EntityCollection((short)Obj3dType.o3d_edge);
-
-           iCollection.SelectByPoint(-99.038461538462, 0, -161.461538461539);
-           var iCurve = iCollection.Last();
-           iCurveArray.Add(iCurve);
-           var iArray = iCurveArrayDef.OperationArray();
-           iCollection = iPart.EntityCollection((short)Obj3dType.o3d_edge);
-           iCollection.SelectByPoint(-8.75, 20, 0);
-           var iEdge = iCollection.Last();
-           var iEdgeDefinition = iEdge.GetDefinition();
-           var iOperation = iEdgeDefinition.GetOwnerEntity();
-           iArray.Add(iOperation);
-
-           obj.name = "Массив вдоль кривой: 1";
-           var iColorParam = obj.ColorParam();
-           iColorParam.ambient = 0.5f;
-           iColorParam.color = 9474192f;
-           iColorParam.diffuse = 0.6f;
-           iColorParam.emission = 0.5f;
-           iColorParam.shininess = 0.8f;
-           iColorParam.specularity = 0.8f;
-           iColorParam.transparency = 1f;
-           obj.Create();
-       }
-       */
     }
 }

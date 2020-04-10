@@ -1,52 +1,59 @@
 ﻿using Kompas6API5;
 using Kompas6Constants3D;
 using System;
-using System.Windows.Forms;
 
 namespace KompasGorka
 {
+    /// <summary>
+    /// Класс используется для подключения 
+    /// к САПР Компас 3Д
+    /// </summary>
     class KompasConnector
-    {
-        // c помощью этого обьекта мы можем 
-        // выбрать определенное окно приложения компас
-        private KompasObject _kompas = null;
+    { 
+        /// <summary>
+        /// Главный обьект Компас 3D
+        /// </summary>
+        private KompasObject _kompas;
 
-        // с помощью этого обьекта мы можем
-        // создать 3Д документ для построения предметов
-        private ksDocument3D _doc3D = null;
+        /// <summary>
+        /// Документ Компас 3D
+        /// </summary>
+        private ksDocument3D _doc3D;
 
-        // c помощью этого обьекта мы можем
-        // взять управление конкретно над интерфейсом программы
-        public ksPart iPart = null;
+        /// <summary>
+        /// Интерфейс компонента
+        /// </summary>
+        public ksPart Part;
 
         public KompasConnector()
         {
             TakeKompas();
         }
 
-        // Кнопка запустить компас, Береме контроль _kompas, и интерфейсом
+        /// <summary>
+        /// Включает и подключает Компас 3D 
+        /// </summary>
         private void TakeKompas()
         {
-            // создать обьект компаса (т.е. обьект будет в процессе но не виден)
-            Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
-            _kompas = (KompasObject)Activator.CreateInstance(t);
-            
+            var t = Type.GetTypeFromProgID("KOMPAS.Application.5");
 
-            // показать компас          
+            _kompas = (KompasObject)Activator.CreateInstance(t);
+
             _kompas.Visible = true;
+
             _kompas.ActivateControllerAPI();
         }
 
+        /// <summary>
+        /// Создает новый документ
+        /// </summary>
         public void NewDocument()
         {
-            // присвоить управление документами _doc3D
             _doc3D = (ksDocument3D)_kompas.Document3D();
 
-            // создать документ
-            _doc3D.Create(false/*invisible*/, true);
+            _doc3D.Create();
 
-            // получить интерфейс детали !!
-            iPart = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
+            Part = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
         }
     }
 }
