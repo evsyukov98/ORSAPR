@@ -1,4 +1,4 @@
-﻿namespace KompasGorka.View
+﻿namespace KompasGorka.GUI
 {
     partial class SlideApplication
     {

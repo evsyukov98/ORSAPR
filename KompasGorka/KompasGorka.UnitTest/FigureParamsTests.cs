@@ -12,19 +12,13 @@ namespace KompasGorka.UnitTests
         [SetUp]
         public void InitContact()
         {
-             _figureParams = new FigureParams(
-                 8,
-                20,
-                80,
-                40,
-                40,
-                20,
-                20);
+            _figureParams = new FigureParams();
         }
+
         [Test(Description = "Проверка высоты бордюра")]
         public void TestBorderHeightSet_CorrectValue()
         {
-            var actual = 8;
+            const int actual = 8;
             var expected = _figureParams.BorderHeightC;
             Assert.AreEqual(actual, expected,
                 "Проверка на правильные значения");
@@ -33,7 +27,7 @@ namespace KompasGorka.UnitTests
         [Test(Description = "Проверка длины конца горки")]
         public void TestEndLengthSet_CorrectValue()
         {
-            var actual = 20;
+            const int actual = 20;
             var expected = _figureParams.EndLengthD;
             Assert.AreEqual(actual, expected,
                 "Проверка на правильные значения");
@@ -42,7 +36,7 @@ namespace KompasGorka.UnitTests
         [Test(Description = "Проверка длины горки")]
         public void TestMainLengthSet_CorrectValue()
         {
-            var actual = 80;
+            const int actual = 80;
             var expected = _figureParams.MainLengthL;
             Assert.AreEqual(actual, expected,
                 "Проверка на правильные значения");
@@ -51,7 +45,7 @@ namespace KompasGorka.UnitTests
         [Test(Description = "Проверка высоты платформы")]
         public void TestPlatformHeightSet_CorrectValue()
         {
-            var actual = 40;
+            const int actual = 40;
             var expected = _figureParams.PlatformHeightG;
             Assert.AreEqual(actual, expected,
                 "Проверка на правильные значения");
@@ -60,7 +54,7 @@ namespace KompasGorka.UnitTests
         [Test(Description = "Проверка длины платформы")]
         public void TestPlatformLengthSet_CorrectValue()
         {
-            var actual = 40;
+            const int actual = 40;
             var expected = _figureParams.PlatformLengthF;
             Assert.AreEqual(actual, expected,
                 "Проверка на правильные значения");
@@ -69,7 +63,7 @@ namespace KompasGorka.UnitTests
         [Test(Description = "Проверка ширины горки")]
         public void TestSlideWidthSet_CorrectValue()
         {
-            var actual = 20;
+            const int actual = 20;
             var expected = _figureParams.SlideWidthA;
             Assert.AreEqual(actual, expected,
                 "Проверка на правильные значения");
@@ -78,7 +72,7 @@ namespace KompasGorka.UnitTests
         [Test(Description = "Проверка длина начала горки")]
         public void TestStartLengthSet_CorrectValue()
         {
-            var actual = 20;
+            const int actual = 20;
             var expected = _figureParams.StartLengthE;
             Assert.AreEqual(actual, expected,
                 "Проверка на правильные значения");
@@ -160,6 +154,5 @@ namespace KompasGorka.UnitTests
                 () => { _figureParams.StartLengthE = wrongParam; },
                 message);
         }
-
     }
 }

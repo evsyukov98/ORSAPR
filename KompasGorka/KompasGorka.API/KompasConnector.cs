@@ -2,36 +2,33 @@
 using Kompas6Constants3D;
 using System;
 
-namespace KompasGorka.Model
+namespace KompasGorka.API
 {
     /// <summary>
     /// Класс используется для подключения 
-    /// к САПР Компас 3Д
+    /// к САПР Компас 3Д.
     /// </summary>
     public class KompasConnector
     { 
         /// <summary>
-        /// Главный обьект Компас 3D
+        /// Главный обьект Компас 3D.
         /// </summary>
         private KompasObject _kompas;
 
         /// <summary>
-        /// Документ Компас 3D
+        /// Документ Компас 3D.
         /// </summary>
         private ksDocument3D _doc3D;
 
         /// <summary>
-        /// Интерфейс компонента
+        /// Интерфейс компонента.
         /// </summary>
         public ksPart Part;
 
-        public KompasConnector()
-        {
-            TakeKompas();
-        }
+        public KompasConnector() => TakeKompas();
 
         /// <summary>
-        /// Включает и подключает Компас 3D 
+        /// Включает и подключает Компас 3D.
         /// </summary>
         private void TakeKompas()
         {
@@ -45,7 +42,7 @@ namespace KompasGorka.Model
         }
 
         /// <summary>
-        /// Создает новый документ
+        /// Создает новый документ.
         /// </summary>
         public void NewDocument()
         {
