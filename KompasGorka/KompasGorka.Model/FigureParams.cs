@@ -43,6 +43,11 @@ namespace KompasGorka.Model
         private int _startLengthE;
 
         /// <summary>
+        /// Толщина платформы.
+        /// </summary>
+        private int _platformThicknessT;
+
+        /// <summary>
         /// Создает экземпляр класса FigureParam.
         /// </summary>
         public FigureParams()
@@ -54,6 +59,7 @@ namespace KompasGorka.Model
             PlatformLengthF = 40;
             SlideWidthA = 20;
             StartLengthE = 20;
+            PlatformThicknessT = 3;
         }
 
         /// <summary>
@@ -180,6 +186,24 @@ namespace KompasGorka.Model
                                                 "должно находиться в диапозоне от 20 до 60.");
                 }
                 _startLengthE = value;
+            }
+        }
+
+        ///<summary>
+        /// Толщина платформы.
+        /// </summary>
+        public int PlatformThicknessT
+        {
+            get => _platformThicknessT;
+
+            set
+            {
+                if (value < 3 || value > 10)
+                {
+                    throw new ArgumentException("Значение параметра - Длина начала горки (E) " +
+                                                "должно находиться в диапозоне от 3 до 10.");
+                }
+                _platformThicknessT = value;
             }
         }
     }

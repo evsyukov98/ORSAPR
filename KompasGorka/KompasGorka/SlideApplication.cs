@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using KompasGorka.API;
 using KompasGorka.Model;
@@ -39,8 +40,19 @@ namespace KompasGorka.GUI
         {
             if (_kompasConnector == null)
             {
-                MessageBox.Show(@"Перед началом работы запустите компас нажав на кнопку - " +
-                                @"Запустить компас.");
+                MessageBox.Show(@"Перед началом работы запустите компас "
+                                + @"нажав на кнопку - Запустить компас.");
+                return;
+            }
+
+            try
+            {
+                _kompasConnector.NewDocument();
+            }
+            catch (COMException)
+            {
+                MessageBox.Show(@"Перед началом работы запустите компас " 
+                                + @"нажав на кнопку - Запустить компас.");
                 return;
             }
 
@@ -49,8 +61,6 @@ namespace KompasGorka.GUI
                 MessageBox.Show(ValidateParams());
                 return;
             }
-
-            _kompasConnector.NewDocument();
 
             var builder = new Builder();
 
@@ -69,6 +79,7 @@ namespace KompasGorka.GUI
             textBoxF.Text = Convert.ToString(40);
             textBoxA.Text = Convert.ToString(20);
             textBoxE.Text = Convert.ToString(20);
+            textBoxT.Text = Convert.ToString(3);
         }
 
         /// <summary>
@@ -205,7 +216,26 @@ namespace KompasGorka.GUI
                 errorMessage += exception.Message + "\n";
             }
 
+            try
+            {
+                if (int.TryParse(textBoxT.Text, out var figureParamT))
+                {
+                    _figureParams.PlatformThicknessT= figureParamT;
+                }
+                else
+                {
+                    throw new ArgumentException("Неправильный ввод значений - " +
+                                                "Толщина платформы должна быть " +
+                                                "быть целочисленными.");
+                }
+            }
+            catch (ArgumentException exception)
+            {
+                errorMessage += exception.Message + "\n";
+            }
+
             return errorMessage;
         }
+
     }
 }

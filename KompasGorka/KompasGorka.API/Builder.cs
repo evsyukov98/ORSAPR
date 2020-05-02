@@ -33,7 +33,7 @@ namespace KompasGorka.API
             // Толщина горки
             const int slideThickness = 4;
 
-            CreatePlatform(5);
+            CreatePlatform();
 
             CreateStartSlide(slideThickness);
 
@@ -53,8 +53,7 @@ namespace KompasGorka.API
         /// <summary>
         /// Создать платформу.
         /// </summary>
-        /// <param name="thickness">Толщина</param>
-        private void CreatePlatform(int thickness)
+        private void CreatePlatform()
         {
             CreateSketch(out var iSketch, out var iDefinitionSketch);
 
@@ -63,12 +62,12 @@ namespace KompasGorka.API
             ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
             iDocument2D.ksLineSeg(platformBeginning, platformBeginning,
-                platformBeginning, thickness, 1);
+                platformBeginning, _figureParams.PlatformThicknessT, 1);
 
-            iDocument2D.ksLineSeg(platformBeginning, thickness, 
-                _figureParams.PlatformLengthF, thickness, 1);
+            iDocument2D.ksLineSeg(platformBeginning, _figureParams.PlatformThicknessT, 
+                _figureParams.PlatformLengthF, _figureParams.PlatformThicknessT, 1);
 
-            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF, thickness,
+            iDocument2D.ksLineSeg(_figureParams.PlatformLengthF, _figureParams.PlatformThicknessT,
                 _figureParams.PlatformLengthF, platformBeginning, 1);
 
             iDocument2D.ksLineSeg(_figureParams.PlatformLengthF, platformBeginning,
