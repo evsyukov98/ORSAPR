@@ -7,7 +7,7 @@ namespace KompasGorka.API
     /// <summary>
     /// Класс для построения фигуры.
     /// </summary>
-    public class Builder
+    public class FigureBuilder
     {
         /// <summary>
         /// Параметры фигуры.

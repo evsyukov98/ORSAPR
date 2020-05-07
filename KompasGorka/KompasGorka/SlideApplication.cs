@@ -62,7 +62,7 @@ namespace KompasGorka.GUI
                 return;
             }
 
-            var builder = new Builder();
+            var builder = new FigureBuilder();
 
             builder.Build(_kompasConnector.Part, _figureParams);
         }
