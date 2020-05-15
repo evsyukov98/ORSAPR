@@ -69,16 +69,7 @@ namespace KompasGorka.Model
         {
             get => _borderHeightC;
 
-            set 
-            {
-                if (value < 8 || value > 32)
-                {
-                    throw new ArgumentException("Значение параметра - Высоты бордюра (C) " +
-                                                "должно находиться в диапозоне от 8 до 32.");
-                }
-                    
-                _borderHeightC = value;
-            } 
+            set => _borderHeightC = SetParam(8, 32, value);
         }
 
         /// <summary>
@@ -88,15 +79,7 @@ namespace KompasGorka.Model
         {
             get => _endLengthD;
 
-            set
-            {
-                if(value < 20 || value > 60)
-                {
-                    throw new ArgumentException("Значение параметра - Длина конца горки (D) " +
-                                                "должно находиться в диапозоне от 20 до 60.");
-                }
-                _endLengthD = value;
-            }
+            set => _endLengthD = SetParam(20, 60, value);
         }
 
         /// <summary>
@@ -106,15 +89,7 @@ namespace KompasGorka.Model
         {
             get => _mainLengthL;
 
-            set
-            {
-                if (value < 80 || value > 240)
-                {
-                    throw new ArgumentException("Значение параметра - Длина горки (L) " +
-                                                "должно находиться в диапозоне от 80 до 240.");
-                }
-                _mainLengthL = value;
-            }
+            set => _mainLengthL = SetParam(80, 240, value);
         }
 
         /// <summary>
@@ -124,15 +99,7 @@ namespace KompasGorka.Model
         {
             get => _platformHeightG;
 
-            set
-            {
-                if (value < 40 || value > 160)
-                {
-                    throw new ArgumentException("Значение параметра - Высота платформы (G) " +
-                                                "должно находиться в диапозоне от 40 до 160.");
-                }
-                _platformHeightG = value;
-            }
+            set => _platformHeightG = SetParam(40, 160, value);
         }
 
         /// <summary>
@@ -142,15 +109,7 @@ namespace KompasGorka.Model
         {
             get => _platformLengthF;
 
-            set
-            {
-                if (value < 40 || value > 120)
-                {
-                    throw new ArgumentException("Значение параметра - Длина платформы (F) " +
-                                                "должно находиться в диапозоне от 40 до 120.");
-                }
-                _platformLengthF = value;
-            }
+            set => _platformLengthF = SetParam(40, 120, value);
         }
 
         /// <summary>
@@ -160,15 +119,7 @@ namespace KompasGorka.Model
         {
             get => _slideWidthA;
 
-            set
-            {
-                if (value < 20 || value > 80)
-                {
-                    throw new ArgumentException("Значение параметра - Ширина горки (A) " +
-                                                "должно находиться в диапозоне от 20 до 80.");
-                }
-                _slideWidthA = value;
-            }
+            set => _slideWidthA = SetParam(20, 80,value);
         }
 
         /// <summary>
@@ -178,15 +129,7 @@ namespace KompasGorka.Model
         {
             get => _startLengthE;
 
-            set
-            {
-                if (value < 20 || value > 60)
-                {
-                    throw new ArgumentException("Значение параметра - Длина начала горки (E) " +
-                                                "должно находиться в диапозоне от 20 до 60.");
-                }
-                _startLengthE = value;
-            }
+            set => _startLengthE = SetParam(20, 60, value);
         }
 
         ///<summary>
@@ -196,15 +139,18 @@ namespace KompasGorka.Model
         {
             get => _platformThicknessT;
 
-            set
+            set => _platformThicknessT = SetParam(3, 10, value);
+        }
+
+        private int SetParam(int min, int max, int value)
+        {
+            if (value < min || value > max)
             {
-                if (value < 3 || value > 10)
-                {
-                    throw new ArgumentException("Значение параметра - Длина начала горки (E) " +
-                                                "должно находиться в диапозоне от 3 до 10.");
-                }
-                _platformThicknessT = value;
+                throw new ArgumentException("Неправильный ввод, значение ( " + value +
+                                            " ) должно находиться в диапазоне от " + 
+                                            min + " до " + max);
             }
+            return value;
         }
     }
 }

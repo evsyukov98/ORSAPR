@@ -23,7 +23,7 @@ namespace KompasGorka.API
         /// <summary>
         /// Интерфейс компонента.
         /// </summary>
-        public ksPart Part;
+        public ksPart Part { get; set; }
 
         public KompasConnector() => TakeKompas();
 

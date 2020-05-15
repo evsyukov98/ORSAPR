@@ -45,6 +45,12 @@ namespace KompasGorka.GUI
                 return;
             }
 
+            if (ValidateParams() != null)
+            {
+                MessageBox.Show(ValidateParams());
+                return;
+            }
+
             try
             {
                 _kompasConnector.NewDocument();
@@ -53,12 +59,6 @@ namespace KompasGorka.GUI
             {
                 MessageBox.Show(@"Перед началом работы запустите компас " 
                                 + @"нажав на кнопку - Запустить компас.");
-                return;
-            }
-
-            if (ValidateParams() != null)
-            {
-                MessageBox.Show(ValidateParams());
                 return;
             }
 
@@ -82,151 +82,86 @@ namespace KompasGorka.GUI
             textBoxT.Text = Convert.ToString(3);
         }
 
+
         /// <summary>
-        /// Валидирует параметры.
+        /// Валидирует все параметры.
         /// </summary>
         /// <returns>Возвращает строку ошибок или null если ошибок нет.</returns>
         private string ValidateParams()
+        {
+            var allErrorMessage = ValidateParam(textBoxC);
+
+            allErrorMessage += ValidateParam(textBoxD);
+
+            allErrorMessage += ValidateParam(textBoxL);
+
+            allErrorMessage += ValidateParam(textBoxG);
+
+            allErrorMessage += ValidateParam(textBoxF);
+
+            allErrorMessage += ValidateParam(textBoxA);
+
+            allErrorMessage += ValidateParam(textBoxE);
+
+            allErrorMessage += ValidateParam(textBoxT);
+
+            if (allErrorMessage.Length == 0)
+                return null;
+
+            return allErrorMessage;
+        }
+
+        /// <summary>
+        /// Валидирует 1 параметр 
+        /// </summary>
+        /// <param name="textBox">Выбор текст бокса который необходимо проверить</param>
+        /// <returns>Возвращает строку ошибки</returns>
+        private string ValidateParam(TextBox textBox)
         {
             string errorMessage = null;
 
             try
             {
-                if (int.TryParse(textBoxC.Text, out var figureParamC))
+                if (int.TryParse(textBox.Text, out var newFigureParam))
                 {
-                    _figureParams.BorderHeightC = figureParamC;
+                    if (textBox == textBoxC)
+                    {
+                        _figureParams.BorderHeightC = newFigureParam;
+                    }
+                    else if (textBox == textBoxD)
+                    {
+                        _figureParams.EndLengthD = newFigureParam;
+                    }
+                    else if (textBox == textBoxL)
+                    {
+                        _figureParams.MainLengthL = newFigureParam;
+                    }
+                    else if (textBox == textBoxG)
+                    {
+                        _figureParams.PlatformHeightG = newFigureParam;
+                    }
+                    else if (textBox == textBoxF)
+                    {
+                        _figureParams.PlatformLengthF = newFigureParam;
+                    }
+                    else if (textBox == textBoxA)
+                    {
+                        _figureParams.SlideWidthA = newFigureParam;
+                    }
+                    else if (textBox == textBoxE)
+                    {
+                        _figureParams.StartLengthE = newFigureParam;
+                    }
+                    else 
+                    {
+                        _figureParams.PlatformThicknessT = newFigureParam;
+                    }
                 }
                 else
                 {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Высота бордюра " +
-                                                "должна быть целочисленными.");
-                }
-            }
-            catch (ArgumentException exception)
-            {
-                errorMessage += exception.Message + "\n";
-            }
-
-            try
-            {
-                if (int.TryParse(textBoxD.Text, out var figureParamD))
-                {
-                    _figureParams.EndLengthD = figureParamD;
-                }
-                else
-                {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Длина конца горки " +
-                                                "должна быть целочисленными.");
-                }
-            }
-            catch (ArgumentException exception)
-            {
-                errorMessage += exception.Message + "\n";
-            }
-
-            try
-            {
-                if (int.TryParse(textBoxL.Text, out var figureParamL))
-                {
-                    _figureParams.MainLengthL = figureParamL;
-                }
-                else
-                {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Длина горки должна " +
-                                                "быть целочисленными.");
-                }
-            }
-            catch (ArgumentException exception)
-            {
-                errorMessage += exception.Message + "\n";
-            }
-
-            try
-            {
-                if (int.TryParse(textBoxG.Text, out var figureParamG))
-                {
-                    _figureParams.PlatformHeightG = figureParamG;
-                }
-                else
-                {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Высота платформы должна " +
-                                                "быть целочисленными.");
-                }
-            }
-            catch (ArgumentException exception)
-            {
-                errorMessage += exception.Message + "\n";
-            }
-
-            try
-            {
-                if (int.TryParse(textBoxF.Text, out var figureParamF))
-                {
-                    _figureParams.PlatformLengthF = figureParamF;
-                }
-                else
-                {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Длина платформы должна " +
-                                                "быть целочисленными.");
-                }
-            }
-            catch (ArgumentException exception)
-            {
-                errorMessage += exception.Message + "\n";
-            }
-
-            try
-            {
-                if (int.TryParse(textBoxA.Text, out var figureParamA))
-                {
-                    _figureParams.SlideWidthA = figureParamA;
-                }
-                else
-                {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Ширина горки должна " +
-                                                "быть целочисленными.");
-                }
-            }
-            catch (ArgumentException exception)
-            {
-                errorMessage += exception.Message + "\n";
-            }
-
-            try
-            {
-                if (int.TryParse(textBoxE.Text, out var figureParamE))
-                {
-                    _figureParams.StartLengthE = figureParamE;
-                }
-                else
-                {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Длина начала горки должна " +
-                                                "быть целочисленными.");
-                }
-            }
-            catch (ArgumentException exception)
-            {
-                errorMessage += exception.Message + "\n";
-            }
-
-            try
-            {
-                if (int.TryParse(textBoxT.Text, out var figureParamT))
-                {
-                    _figureParams.PlatformThicknessT= figureParamT;
-                }
-                else
-                {
-                    throw new ArgumentException("Неправильный ввод значений - " +
-                                                "Толщина платформы должна быть " +
-                                                "быть целочисленными.");
+                    throw new ArgumentException("Неправильный ввод значений, символ ( " +
+                                                textBox.Text +
+                                                " ) не является целочисленным.");
                 }
             }
             catch (ArgumentException exception)
@@ -236,6 +171,5 @@ namespace KompasGorka.GUI
 
             return errorMessage;
         }
-
     }
 }
