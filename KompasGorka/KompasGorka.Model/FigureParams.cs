@@ -65,12 +65,16 @@ namespace KompasGorka.Model
         /// <summary>
         /// Высота бордюра.
         /// </summary>
-        public int BorderHeightC 
+        public int BorderHeightC
         {
             get => _borderHeightC;
 
-            set => _borderHeightC = SetParam(8, 32, value);
-        }
+            set
+            {
+                SetParam(8, 32, value);
+                _borderHeightC = value;
+            }
+}
 
         /// <summary>
         /// Длина конца горки.
@@ -79,7 +83,11 @@ namespace KompasGorka.Model
         {
             get => _endLengthD;
 
-            set => _endLengthD = SetParam(20, 60, value);
+            set
+            {
+                SetParam(20, 60, value);
+                _endLengthD = value;
+            }
         }
 
         /// <summary>
@@ -89,8 +97,12 @@ namespace KompasGorka.Model
         {
             get => _mainLengthL;
 
-            set => _mainLengthL = SetParam(80, 240, value);
-        }
+            set 
+            { 
+                SetParam(80, 240, value);
+                _mainLengthL = value;
+            }
+}
 
         /// <summary>
         /// Высота платформы.
@@ -99,8 +111,12 @@ namespace KompasGorka.Model
         {
             get => _platformHeightG;
 
-            set => _platformHeightG = SetParam(40, 160, value);
-        }
+            set 
+            {
+                SetParam(40, 160, value);
+                _platformHeightG = value;
+            }
+    }
 
         /// <summary>
         /// Длина платформы.
@@ -109,7 +125,11 @@ namespace KompasGorka.Model
         {
             get => _platformLengthF;
 
-            set => _platformLengthF = SetParam(40, 120, value);
+            set
+            {
+                SetParam(40, 120, value);
+                _platformLengthF = value;
+            }
         }
 
         /// <summary>
@@ -119,7 +139,11 @@ namespace KompasGorka.Model
         {
             get => _slideWidthA;
 
-            set => _slideWidthA = SetParam(20, 80,value);
+            set
+            {
+                SetParam(20, 80, value);
+                _slideWidthA = value;
+            }
         }
 
         /// <summary>
@@ -129,7 +153,11 @@ namespace KompasGorka.Model
         {
             get => _startLengthE;
 
-            set => _startLengthE = SetParam(20, 60, value);
+            set
+            {
+                SetParam(20, 60, value);
+                _startLengthE = value;
+            }
         }
 
         ///<summary>
@@ -139,10 +167,14 @@ namespace KompasGorka.Model
         {
             get => _platformThicknessT;
 
-            set => _platformThicknessT = SetParam(3, 10, value);
+            set 
+            { 
+                SetParam(3, 10, value);
+                _platformThicknessT = value;
+            }
         }
 
-        private int SetParam(int min, int max, int value)
+        private void SetParam(int min, int max, int value)
         {
             if (value < min || value > max)
             {
@@ -150,7 +182,6 @@ namespace KompasGorka.Model
                                             " ) должно находиться в диапазоне от " + 
                                             min + " до " + max);
             }
-            return value;
         }
     }
 }
