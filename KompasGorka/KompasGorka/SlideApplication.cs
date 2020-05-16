@@ -68,18 +68,18 @@ namespace KompasGorka.GUI
         }
 
         /// <summary>
-        /// Инициализация начальный параметров.
+        /// Инициализация начальных параметров.
         /// </summary>
         private void InitializeParams()
         {
-            textBoxC.Text = Convert.ToString(8);
-            textBoxD.Text = Convert.ToString(20);
-            textBoxL.Text = Convert.ToString(80);
-            textBoxG.Text = Convert.ToString(40);
-            textBoxF.Text = Convert.ToString(40);
-            textBoxA.Text = Convert.ToString(20);
-            textBoxE.Text = Convert.ToString(20);
-            textBoxT.Text = Convert.ToString(3);
+            textBoxC.Text = Convert.ToString(_figureParams.BorderHeightC);
+            textBoxD.Text = Convert.ToString(_figureParams.EndLengthD);
+            textBoxL.Text = Convert.ToString(_figureParams.MainLengthL);
+            textBoxG.Text = Convert.ToString(_figureParams.PlatformHeightG);
+            textBoxF.Text = Convert.ToString(_figureParams.PlatformLengthF);
+            textBoxA.Text = Convert.ToString(_figureParams.SlideWidthA);
+            textBoxE.Text = Convert.ToString(_figureParams.StartLengthE);
+            textBoxT.Text = Convert.ToString(_figureParams.PlatformThicknessT);
         }
 
 
@@ -105,10 +105,7 @@ namespace KompasGorka.GUI
 
             allErrorMessage += ValidateParam(textBoxT);
 
-            if (allErrorMessage.Length == 0)
-                return null;
-
-            return allErrorMessage;
+            return allErrorMessage.Length == 0 ? null : allErrorMessage;
         }
 
         /// <summary>
