@@ -71,7 +71,7 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(8, 32, value, nameof(BorderHeightC));
+                SetParam(8, 32, value, "Высота бордюра (C)");
                 _borderHeightC = value;
             }
 }
