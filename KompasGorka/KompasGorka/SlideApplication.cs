@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using KompasGorka.API;
@@ -8,6 +9,11 @@ namespace KompasGorka.GUI
 {
     public partial class SlideApplication : Form
     {
+        /// <summary>
+        /// Словарь хранящий текстбокс и строку с названием.
+        /// </summary>
+        private readonly Dictionary<TextBox, (string, string)> _paramsNames;
+
         /// <summary>
         /// Параметры фигуры.
         /// </summary>
@@ -23,6 +29,18 @@ namespace KompasGorka.GUI
             InitializeComponent();
 
             InitializeParams();
+
+            _paramsNames = new Dictionary<TextBox, (string, string)>
+            {
+                {textBoxC, (nameof(_figureParams.BorderHeightC), "Высота бордюра")},
+                {textBoxD, (nameof(_figureParams.EndLengthD), "Длина конца горки")},
+                {textBoxL, (nameof(_figureParams.MainLengthL), "Длина горки")},
+                {textBoxG, (nameof(_figureParams.PlatformHeightG),"Высота платформы")},
+                {textBoxF, (nameof(_figureParams.PlatformLengthF),"Длина платформы")},
+                {textBoxA, (nameof(_figureParams.SlideWidthA),"Ширина горки")},
+                {textBoxE, (nameof(_figureParams.EndLengthD), "Длина конца горки")},
+                {textBoxT, (nameof(_figureParams.PlatformThicknessT), "Толщина платформы")}
+            };
         }
 
         /// <summary>
@@ -83,6 +101,7 @@ namespace KompasGorka.GUI
         }
 
 
+
         /// <summary>
         /// Валидирует все параметры.
         /// </summary>
@@ -121,44 +140,48 @@ namespace KompasGorka.GUI
             {
                 if (int.TryParse(textBox.Text, out var newFigureParam))
                 {
-                    if (textBox == textBoxC)
+                    switch (_paramsNames[textBox].Item1)
                     {
-                        _figureParams.BorderHeightC = newFigureParam;
-                    }
-                    else if (textBox == textBoxD)
-                    {
-                        _figureParams.EndLengthD = newFigureParam;
-                    }
-                    else if (textBox == textBoxL)
-                    {
-                        _figureParams.MainLengthL = newFigureParam;
-                    }
-                    else if (textBox == textBoxG)
-                    {
-                        _figureParams.PlatformHeightG = newFigureParam;
-                    }
-                    else if (textBox == textBoxF)
-                    {
-                        _figureParams.PlatformLengthF = newFigureParam;
-                    }
-                    else if (textBox == textBoxA)
-                    {
-                        _figureParams.SlideWidthA = newFigureParam;
-                    }
-                    else if (textBox == textBoxE)
-                    {
-                        _figureParams.StartLengthE = newFigureParam;
-                    }
-                    else 
-                    {
-                        _figureParams.PlatformThicknessT = newFigureParam;
+                        case nameof(_figureParams.BorderHeightC):
+                            _figureParams.BorderHeightC = newFigureParam;
+                            break;
+
+                        case nameof(_figureParams.EndLengthD):
+                            _figureParams.EndLengthD = newFigureParam;
+                            break;
+
+                        case nameof(_figureParams.MainLengthL):
+                            _figureParams.MainLengthL = newFigureParam;
+                            break;
+
+                        case nameof(_figureParams.PlatformHeightG):
+                            _figureParams.PlatformHeightG = newFigureParam;
+                            break;
+
+                        case nameof(_figureParams.PlatformLengthF):
+                            _figureParams.PlatformLengthF = newFigureParam;
+                            break;
+
+                        case nameof(_figureParams.SlideWidthA):
+                            _figureParams.SlideWidthA = newFigureParam;
+                            break;
+
+                        case nameof(_figureParams.StartLengthE):
+                            _figureParams.StartLengthE = newFigureParam;
+                            break;
+
+                        case nameof(_figureParams.PlatformThicknessT):
+                            _figureParams.PlatformThicknessT = newFigureParam;
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
                 }
                 else
                 {
-                    throw new ArgumentException("Неправильный ввод значений, символ ( " +
-                                                textBox.Text +
-                                                " ) не является целочисленным.");
+                    throw new ArgumentException(_paramsNames[textBox].Item2 +
+                                                " не является целочисленной.");
                 }
             }
             catch (ArgumentException exception)

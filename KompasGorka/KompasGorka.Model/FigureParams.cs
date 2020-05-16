@@ -71,7 +71,7 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(8, 32, value);
+                SetParam(8, 32, value, nameof(BorderHeightC));
                 _borderHeightC = value;
             }
 }
@@ -85,7 +85,7 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(20, 60, value);
+                SetParam(20, 60, value, "Длина конца горки (D)");
                 _endLengthD = value;
             }
         }
@@ -99,7 +99,7 @@ namespace KompasGorka.Model
 
             set 
             { 
-                SetParam(80, 240, value);
+                SetParam(80, 240, value, "Длина горки (L)");
                 _mainLengthL = value;
             }
 }
@@ -113,7 +113,7 @@ namespace KompasGorka.Model
 
             set 
             {
-                SetParam(40, 160, value);
+                SetParam(40, 160, value, "Высота платформы (G)");
                 _platformHeightG = value;
             }
     }
@@ -127,7 +127,7 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(40, 120, value);
+                SetParam(40, 120, value,"Длина платформы (F)");
                 _platformLengthF = value;
             }
         }
@@ -141,7 +141,7 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(20, 80, value);
+                SetParam(20, 80, value,"Ширина горки (A)");
                 _slideWidthA = value;
             }
         }
@@ -155,7 +155,7 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(20, 60, value);
+                SetParam(20, 60, value, "Длина начала горки (E)");
                 _startLengthE = value;
             }
         }
@@ -169,18 +169,24 @@ namespace KompasGorka.Model
 
             set 
             { 
-                SetParam(3, 10, value);
+                SetParam(3, 10, value, "Толщина платформы (T)");
                 _platformThicknessT = value;
             }
         }
 
-        private void SetParam(int min, int max, int value)
+        /// <summary>
+        /// Установить параметры.
+        /// </summary>
+        /// <param name="min">Минимальные значения</param>
+        /// <param name="max">Максимальные значения</param>
+        /// <param name="value">Значение</param>
+        /// <param name="name">Название парметра</param>
+        private void SetParam(int min, int max, int value, string name)
         {
             if (value < min || value > max)
             {
-                throw new ArgumentException("Неправильный ввод, значение ( " + value +
-                                            " ) должно находиться в диапазоне от " + 
-                                            min + " до " + max);
+                throw new ArgumentException(name + " должна находиться в диапазоне от " + 
+                                            min + " до " + max + ".");
             }
         }
     }
