@@ -3,52 +3,52 @@
 namespace KompasGorka.Model
 {
     /// <summary>
-    /// Класс параметров фигуры
+    ///     Класс параметров фигуры.
     /// </summary>
     public class FigureParams
     {
         /// <summary>
-        /// Высота бордюра.
+        ///     Высота бордюра.
         /// </summary>
         private int _borderHeightC;
 
         /// <summary>
-        /// Длина конца горки.
+        ///     Длина конца горки.
         /// </summary>
         private int _endLengthD;
 
         /// <summary>
-        /// Длина горки.
+        ///     Длина горки.
         /// </summary>
         private int _mainLengthL;
 
         /// <summary>
-        /// Высота платформы.
+        ///     Высота платформы.
         /// </summary>
         private int _platformHeightG;
 
         /// <summary>
-        /// Длина платформы.
+        ///     Длина платформы.
         /// </summary>
         private int _platformLengthF;
 
         /// <summary>
-        /// Ширина платформы.
-        /// </summary>
-        private int _slideWidthA;
-
-        /// <summary>
-        /// Длина начала горки.
-        /// </summary>
-        private int _startLengthE;
-
-        /// <summary>
-        /// Толщина платформы.
+        ///     Толщина платформы.
         /// </summary>
         private int _platformThicknessT;
 
         /// <summary>
-        /// Создает экземпляр класса FigureParam.
+        ///     Ширина платформы.
+        /// </summary>
+        private int _slideWidthA;
+
+        /// <summary>
+        ///     Длина начала горки.
+        /// </summary>
+        private int _startLengthE;
+
+        /// <summary>
+        ///     Конструктор класса.
         /// </summary>
         public FigureParams()
         {
@@ -63,7 +63,7 @@ namespace KompasGorka.Model
         }
 
         /// <summary>
-        /// Высота бордюра.
+        ///     Высота бордюра.
         /// </summary>
         public int BorderHeightC
         {
@@ -71,13 +71,14 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(8, 32, value, "Высота бордюра (C)");
+                CheckParam(8, 32, value, "Высота бордюра (C)");
+
                 _borderHeightC = value;
             }
-}
+        }
 
         /// <summary>
-        /// Длина конца горки.
+        ///     Длина конца горки.
         /// </summary>
         public int EndLengthD
         {
@@ -85,41 +86,44 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(20, 60, value, "Длина конца горки (D)");
+                CheckParam(20, 60, value, "Длина конца горки (D)");
+
                 _endLengthD = value;
             }
         }
 
         /// <summary>
-        /// Длина горки.
+        ///     Длина горки.
         /// </summary>
         public int MainLengthL
         {
             get => _mainLengthL;
 
-            set 
-            { 
-                SetParam(80, 240, value, "Длина горки (L)");
+            set
+            {
+                CheckParam(80, 240, value, "Длина горки (L)");
+
                 _mainLengthL = value;
             }
-}
+        }
 
         /// <summary>
-        /// Высота платформы.
+        ///     Высота платформы.
         /// </summary>
         public int PlatformHeightG
         {
             get => _platformHeightG;
 
-            set 
+            set
             {
-                SetParam(40, 160, value, "Высота платформы (G)");
+                CheckParam(40, 160, value, "Высота платформы (G)");
+
                 _platformHeightG = value;
             }
-    }
+        }
 
         /// <summary>
-        /// Длина платформы.
+        ///     Длина платформы.
         /// </summary>
         public int PlatformLengthF
         {
@@ -127,13 +131,14 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(40, 120, value,"Длина платформы (F)");
+                CheckParam(40, 120, value, "Длина платформы (F)");
+
                 _platformLengthF = value;
             }
         }
 
         /// <summary>
-        /// Ширина горки.
+        ///     Ширина горки.
         /// </summary>
         public int SlideWidthA
         {
@@ -141,13 +146,14 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(20, 80, value,"Ширина горки (A)");
+                CheckParam(20, 80, value, "Ширина горки (A)");
+
                 _slideWidthA = value;
             }
         }
 
         /// <summary>
-        /// Длина начала горки.
+        ///     Длина начала горки.
         /// </summary>
         public int StartLengthE
         {
@@ -155,38 +161,41 @@ namespace KompasGorka.Model
 
             set
             {
-                SetParam(20, 60, value, "Длина начала горки (E)");
+                CheckParam(20, 60, value, "Длина начала горки (E)");
+
                 _startLengthE = value;
             }
         }
 
-        ///<summary>
-        /// Толщина платформы.
+        /// <summary>
+        ///     Толщина платформы.
         /// </summary>
         public int PlatformThicknessT
         {
             get => _platformThicknessT;
 
-            set 
-            { 
-                SetParam(3, 10, value, "Толщина платформы (T)");
+            set
+            {
+                CheckParam(3, 10, value, "Толщина платформы (T)");
+
                 _platformThicknessT = value;
             }
         }
 
         /// <summary>
-        /// Установить параметры.
+        ///     Проверить параметры на граничные значения.
         /// </summary>
-        /// <param name="min">Минимальные значения</param>
-        /// <param name="max">Максимальные значения</param>
-        /// <param name="value">Значение</param>
-        /// <param name="name">Название парметра</param>
-        private void SetParam(int min, int max, int value, string name)
+        /// <param name="min">Минимальные значения.</param>
+        /// <param name="max">Максимальные значения.</param>
+        /// <param name="value">Значение.</param>
+        /// <param name="name">Название парметра.</param>
+        private void CheckParam(int min, int max, int value, string name)
         {
             if (value < min || value > max)
             {
-                throw new ArgumentException(name + " должна находиться в диапазоне от " + 
-                                            min + " до " + max + ".");
+                throw new ArgumentException(
+                    name + " должна находиться в диапазоне от " +
+                    min + " до " + max + ".");
             }
         }
     }

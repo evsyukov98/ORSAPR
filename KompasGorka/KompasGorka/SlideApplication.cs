@@ -7,23 +7,29 @@ using KompasGorka.Model;
 
 namespace KompasGorka.GUI
 {
+    /// <summary>
+    ///     Главная форма.
+    /// </summary>
     public partial class SlideApplication : Form
     {
         /// <summary>
-        /// Словарь хранящий текстбокс и строку с названием.
-        /// </summary>
-        private readonly Dictionary<TextBox, (string, string)> _paramsNames;
-
-        /// <summary>
-        /// Параметры фигуры.
+        ///     Параметры фигуры.
         /// </summary>
         private readonly FigureParams _figureParams = new FigureParams();
 
         /// <summary>
-        /// Класс для подключения Компаса 3D.
+        ///     Словарь хранящий текстбоксы и строку с названием.
+        /// </summary>
+        private readonly Dictionary<TextBox, (string, string)> _paramsNames;
+
+        /// <summary>
+        ///     Класс для работы с API Компас 3D.
         /// </summary>
         private KompasConnector _kompasConnector;
 
+        /// <summary>
+        ///     Конструктор класса.
+        /// </summary>
         public SlideApplication()
         {
             InitializeComponent();
@@ -35,16 +41,16 @@ namespace KompasGorka.GUI
                 {textBoxC, (nameof(_figureParams.BorderHeightC), "Высота бордюра")},
                 {textBoxD, (nameof(_figureParams.EndLengthD), "Длина конца горки")},
                 {textBoxL, (nameof(_figureParams.MainLengthL), "Длина горки")},
-                {textBoxG, (nameof(_figureParams.PlatformHeightG),"Высота платформы")},
-                {textBoxF, (nameof(_figureParams.PlatformLengthF),"Длина платформы")},
-                {textBoxA, (nameof(_figureParams.SlideWidthA),"Ширина горки")},
+                {textBoxG, (nameof(_figureParams.PlatformHeightG), "Высота платформы")},
+                {textBoxF, (nameof(_figureParams.PlatformLengthF), "Длина платформы")},
+                {textBoxA, (nameof(_figureParams.SlideWidthA), "Ширина горки")},
                 {textBoxE, (nameof(_figureParams.EndLengthD), "Длина конца горки")},
                 {textBoxT, (nameof(_figureParams.PlatformThicknessT), "Толщина платформы")}
             };
         }
 
         /// <summary>
-        /// Кнопка включения компаса.
+        ///     Кнопка включения компаса.
         /// </summary>
         private void ButtonStart_Click(object sender, EventArgs e)
         {
@@ -52,7 +58,7 @@ namespace KompasGorka.GUI
         }
 
         /// <summary>
-        /// Кнопка построить фигуру.
+        ///     Кнопка построить фигуру.
         /// </summary>
         private void ButtonBuildSlide_Click(object sender, EventArgs e)
         {
@@ -75,7 +81,7 @@ namespace KompasGorka.GUI
             }
             catch (COMException)
             {
-                MessageBox.Show(@"Перед началом работы запустите компас " 
+                MessageBox.Show(@"Перед началом работы запустите компас "
                                 + @"нажав на кнопку - Запустить компас.");
                 return;
             }
@@ -86,7 +92,7 @@ namespace KompasGorka.GUI
         }
 
         /// <summary>
-        /// Инициализация начальных параметров.
+        ///     Инициализация начальных параметров.
         /// </summary>
         private void InitializeParams()
         {
@@ -100,10 +106,8 @@ namespace KompasGorka.GUI
             textBoxT.Text = Convert.ToString(_figureParams.PlatformThicknessT);
         }
 
-
-
         /// <summary>
-        /// Валидирует все параметры.
+        ///     Валидирует параметры.
         /// </summary>
         /// <returns>Возвращает строку ошибок или null если ошибок нет.</returns>
         private string ValidateParams()
@@ -128,10 +132,10 @@ namespace KompasGorka.GUI
         }
 
         /// <summary>
-        /// Валидирует 1 параметр 
+        ///     Валидирует один параметр.
         /// </summary>
-        /// <param name="textBox">Выбор текст бокса который необходимо проверить</param>
-        /// <returns>Возвращает строку ошибки</returns>
+        /// <param name="textBox">Выбор текстбокса который необходимо проверить.</param>
+        /// <returns>Возвращает строку ошибки.</returns>
         private string ValidateParam(TextBox textBox)
         {
             string errorMessage = null;
